@@ -1,0 +1,494 @@
+aid: marriott
+name: Marriott International
+review:
+  question: >-
+    Does Marriott International publish a public, self-serve API program, and what would it cost a
+    customer or integrator to leave Marriott's distribution and technology relationship?
+  answer: false
+  date: '2026-07-28'
+  reviewer: API Evangelist
+  tier: hotel-group
+  homeMarket: United States
+  primaryDomain: marriott.com
+findings:
+  summary: |
+    Marriott International publishes no public developer program. A Broadcom Layer7 API developer
+    portal is live at https://devportalprod.marriott.com (HTTP 200) but its anonymous API catalog
+    endpoint /api/apis returns an empty item array, and the portal's own home content endpoint
+    /content/home returns HTTP 401. There is no self-serve API key, no public API reference, no
+    documented rates/availability/booking API, no sandbox, no SDK, no OpenAPI published by Marriott
+    on a Marriott host, and no bulk data export operation of any kind.
+
+    The only Marriott OpenAPI documents readable without a contract are eight internal and
+    partner-facing specifications left publicly readable on SwaggerHub under the "marriott-api"
+    owner. Six of them are mirrored verbatim in openapi/ as evidence; two credential-distribution
+    specifications were deliberately not mirrored (see specExposure.notMirrored). Attribution to
+    Marriott International is supported by the documents themselves: the commerce-payment-processor
+    document names contact "Marriott API Team" at https://api.marriott.com/ with email
+    apidevteam@marriott.com and a license named "Marriott Consumer License", and several documents
+    name gatewaydsapdev1.marriott.com, gatewaydsaptst1.marriott.com, gatewaydsapuat3.marriott.com
+    and *.cld.marriott.com servers.
+
+    Marriott's actual programmatic distribution runs through channels it does not itself document
+    publicly: the three global distribution systems, the OTAs, and — for its Homes & Villas
+    home-rental inventory — a Channel Connectivity Program that property-management-system and
+    channel-manager vendors join by contacting Marriott through a Salesforce partner portal.
+  developerPortal:
+    url: https://devportalprod.marriott.com/
+    httpStatus: 200
+    platform: Broadcom (CA) Layer7 API Developer Portal, "atmosphere"/"hermosa" theme
+    selfServe: false
+    publicCatalogEmpty: true
+    evidence:
+      - probe: GET https://devportalprod.marriott.com/api/apis
+        status: 200
+        body: '{"channel":{"title":"APIs","item":[]},"version":"1.0"}'
+        note: Anonymous API catalog returns zero APIs. Repeated with ?itemsPerPage=100, same result.
+      - probe: GET https://devportalprod.marriott.com/content/home
+        status: 401
+        note: Portal home content itself requires authentication.
+      - probe: GET https://devportalprod.marriott.com/admin
+        status: 302
+        redirect: https://developers.marriott.com/admin/
+        note: >-
+          Redirects to developers.marriott.com, which has no DNS A record at all (NXDOMAIN as of
+          2026-07-28) — a stale portal configuration.
+      - probe: GET https://devportalprod.marriott.com/signup
+        status: 200
+        note: >-
+          Returns the SPA shell that client-side redirects to /#/signup. A signup route exists but no
+          public API catalog exists behind it, so signup grants access to nothing that is published.
+  probes:
+    - url: https://developer.marriott.com
+      status: 000
+      note: No DNS record.
+    - url: https://developers.marriott.com
+      status: 000
+      note: No DNS record.
+    - url: https://api.marriott.com
+      status: 000
+      note: >-
+        DNS CNAME resolves to marriott.lb.apidn.net but no A record and no TCP connection. Cited as a
+        contact URL inside Marriott's own OpenAPI documents; not reachable from the public internet.
+    - url: https://docs.marriott.com
+      status: 000
+      note: No DNS record.
+    - url: https://apis.marriott.com
+      status: 000
+      note: No DNS record.
+    - url: https://www.marriott.com/developers
+      status: 404
+    - url: https://www.marriott.com/api
+      status: 404
+    - url: https://www.marriott.com/docs
+      status: 404
+    - url: https://www.marriott.com/openapi.json
+      status: 404
+    - url: https://www.marriott.com/swagger.json
+      status: 404
+    - url: https://www.marriott.com/api-docs
+      status: 500
+    - url: https://www.marriott.com/.well-known/security.txt
+      status: 200
+      note: >-
+        Contact https://hackerone.com/marriott; Expires 2026-12-31. A vulnerability disclosure route
+        exists; an API documentation route does not.
+    - url: https://www.marriott.com/robots.txt
+      status: 200
+      note: >-
+        Disallows /reservation/availabilitySearch.mi, /aries-search/ and all localized /search/ paths.
+        Marriott explicitly blocks crawlers from its availability and search surfaces.
+    - url: https://devportalprod.marriott.com/openapi.json
+      status: 404
+    - url: https://devportalprod.marriott.com/swagger.json
+      status: 404
+    - url: https://devportalprod.marriott.com/api-docs
+      status: 404
+    - url: https://devportalprod.marriott.com/.well-known/security.txt
+      status: 404
+    - url: https://homes-and-villas.marriott.com/en/connectivity-partners
+      status: 200
+    - url: https://homes-and-villas.marriott.com/openapi.json
+      status: 404
+    - url: https://partners.homes-and-villas.marriott.com/s/connectivity-partner-contact-us
+      status: 200
+      note: Salesforce Experience Cloud partner contact form; the only published route into the API.
+    - url: https://www.travelagents.marriott.com/travelagents/GDSResInfo.mi
+      status: 200
+    - url: https://www.travelagents.marriott.com/travelagents/internethelpdesk.mi
+      status: 200
+    - url: https://www.travelagents.marriott.com/travelagents/createAccount.mi
+      status: 200
+    - url: https://www.marriott.com/en-us/about/terms-of-use.mi
+      status: 200
+    - url: https://www.marriott.com/loyalty/terms/default.mi
+      status: 200
+    - url: https://www.marriott.com/about/us-consumer.mi
+      status: 200
+    - url: https://api.apis.guru/v2/list.json
+      status: 200
+      note: Zero Marriott entries in the APIs.guru public OpenAPI directory.
+    - url: https://api.github.com/orgs/marriott
+      status: 404
+      note: >-
+        Also checked marriottinternational, marriott-international and MarriottInternational — all 404.
+        Marriott operates no public GitHub organization.
+specExposure:
+  source: SwaggerHub public registry, owner "marriott-api"
+  discovery: GET https://api.swaggerhub.com/apis/marriott-api?limit=100 -> HTTP 200, totalCount 8
+  fetchDate: '2026-07-28'
+  uiGated: >-
+    The human SwaggerHub UI at https://app.swaggerhub.com/apis/marriott-api/... returns HTTP 302 to
+    https://app.swaggerhub.com/apiproxy/sbid/login. The raw specification endpoints on
+    api.swaggerhub.com return HTTP 200 anonymously. The documents are therefore machine-readable by
+    anyone while appearing gated to a human browser.
+  posture: >-
+    These are not a developer program. Six are SwaggerHub drafts (X-Published false) and two are
+    published versions; all eight are X-Private false, i.e. world-readable. They describe Marriott's
+    internal and partner-facing estate, not an offer to third-party developers. They are recorded here
+    as evidence of Marriott's real API surface and as a documented exposure, not as an invitation.
+  mirrored:
+    - name: tip-internet-portal-api-spec
+      version: 1.0.2
+      title: TIP Internet Portal
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/tip-internet-portal-api-spec/1.0.2
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.4
+      published: true
+      file: openapi/marriott-tip-internet-portal-api-openapi.json
+      operations:
+        - POST /v3/ent-auth/sso/token
+        - /partners/v1/internet-portal/landing-page
+        - /partners/v1/internet-portal/guest-validation
+        - /partners/v1/internet-portal/purchase-update
+      serversDeclared:
+        - https://gatewaydsapuat3.marriott.com
+    - name: account-merge
+      version: 1.0.2
+      title: Merge/Transfer Request API - new TIP MMF Spec for sending Account Merge request to SF CLM
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/account-merge/1.0.2
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.3
+      published: false
+      file: openapi/marriott-loyalty-account-merge-api-openapi.json
+      operations:
+        - POST /loyalty/v1/account-merge
+      serversDeclared:
+        - https://virtserver.swaggerhub.com/marriott-api/lylt-v1-merge-profile/1.0.1
+    - name: Data_Collection_API
+      version: 1.0.0
+      title: Data Collection API
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/Data_Collection_API/1.0.0
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.3
+      published: false
+      file: openapi/marriott-data-collection-api-openapi.json
+      operations:
+        - POST /osd/v1/stays/{confirmation-number}/data-collection
+      serversDeclared:
+        - https://virtserver.swaggerhub.com/marriott-api/Data_Collection_API/1.0.0
+        - https://virtserver.swaggerhub.com/marriott-api/Digital_Key_Events_Data_Collection/1.0.0
+        - https://gatewaydsapdev1.marriott.com/
+        - https://gatewaydsaptst1.marriott.com/
+    - name: commerce-payment-processor
+      version: 1.0.0
+      title: commerce-payment-processor
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/commerce-payment-processor/1.0.0
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.0
+      published: false
+      file: openapi/marriott-commerce-payment-processor-api-openapi.json
+      operations:
+        - POST /freeway/service
+      attribution: >-
+        info.contact = {name "Marriott API Team", url https://api.marriott.com/, email
+        apidevteam@marriott.com}; info.license = {name "Marriott Consumer License", url
+        http://api.marriott.com/license}; info.termsOfService = http://api.marriott.com/tos.
+        None of those three marriott.com URLs are reachable from the public internet.
+      securitySchemes:
+        - basicAuth (http basic)
+        - bearerAuth (http bearer)
+        - OAuth2 (authorizationCode)
+      scopeObserved: MANAGE_ACCT_AUTH_E
+    - name: finance-all-statusnotifier
+      version: 1.0.2
+      title: Finance Status Notifier Application
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/finance-all-statusnotifier/1.0.2
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.0
+      published: true
+      file: openapi/marriott-finance-status-notifier-api-openapi.json
+      operations:
+        - /status
+        - /data
+        - /retrieveConfigsMonitoredByConfigWatcher
+        - /actuator/loggers/ROOT
+      securitySchemes:
+        - application (oauth2 clientCredentials)
+    - name: hotel-operations-ara-preview-submit-api
+      version: 1.0.0
+      title: Hotel Operations ARA - Preview Submit API
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/hotel-operations-ara-preview-submit-api/1.0.0
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      openapi: 3.0.3
+      published: false
+      file: openapi/marriott-hotel-operations-ara-api-openapi.json
+      operations:
+        - POST /v1/hotelops/ara/preview-submit
+      serversDeclared: []
+  notMirrored:
+    - name: Property_Onboarding_Credential_Update
+      version: 1.0.0
+      title: Property Onboarding - Credential Update To TAP
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/Property_Onboarding_Credential_Update/1.0.0
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      reason: >-
+        Describes credential update for a property code against Marriott dev and test gateway hosts.
+        Existence and provenance are documented here; the document itself is deliberately not mirrored
+        into a public catalog. API Evangelist practice is to document exposure, not to amplify it.
+    - name: foundcap-tap-cred-api
+      version: 3.0.0
+      title: TAP - Credentials Lookup API
+      sourceURL: https://api.swaggerhub.com/apis/marriott-api/foundcap-tap-cred-api/3.0.0
+      httpStatus: 200
+      fetchDate: '2026-07-28'
+      reason: >-
+        Credentials lookup by property code against *.cld.marriott.com dev and test hosts. Same
+        rationale — documented, not mirrored.
+  alsoObserved:
+    - note: >-
+        Three further SwaggerHub documents matching "marriott" sit under non-Marriott owner accounts
+        (bkuri207, pkook297 for a "Marriott CIAM Authentication and Authorization Service", and an
+        account at the marriott-sp.com domain). Attribution to Marriott International could not be
+        established, so they are neither listed nor mirrored.
+switchingCost:
+  interfaceShape:
+    value: proprietary-undocumented
+    standardNamed: none
+    evidence: >-
+      Marriott publishes no interface contract of any kind for third-party developers. No OpenTravel /
+      OTA, HTNG, HEDNA, GIATA or any other hospitality standard is referenced anywhere on marriott.com,
+      travelagents.marriott.com, homes-and-villas.marriott.com or devportalprod.marriott.com, and none
+      appears in any of the eight harvested OpenAPI documents. The harvested documents are ordinary
+      OpenAPI 3.0.x over REST/JSON with Marriott-specific path namespaces (/osd/v1, /loyalty/v1,
+      /foundcap/v1, /partners/v1, /v1/hotelops), Marriott-specific header contracts (client_id,
+      operator_id, correlation-id) and Marriott-specific enumerations (memberAccountTypeCode "CSID",
+      accountStatusTypeCode "23"). The one place Marriott's inventory does meet a shared industry
+      contract is the GDS layer, and Marriott does not operate or document that contract — the GDSs do.
+    caveat: >-
+      The GDS route is standards-mediated and therefore portable, but it is portable between GDSs, not
+      away from Marriott. Marriott's own interface is a rebuild in every direction.
+  secondSource:
+    value: few-alternatives
+    alternativesConsidered:
+      - Competing hotel groups with actual developer programs — Hilton (developer.hilton.io) is the
+        nearest peer that publishes one; IHG, Hyatt, Accor and Wyndham. None of these is a substitute
+        for Marriott room inventory; they are substitute inventory.
+      - GDS content APIs — Sabre, Amadeus and Travelport all resell Marriott inventory and are
+        documented, self-serve-adjacent developer platforms. This is a genuine second route to Marriott
+        rooms, at the price of GDS segment economics and no access to Bonvoy member rates.
+      - >-
+        Bedbanks and OTA APIs — Expedia Rapid, Booking.com Demand API, Hotelbeds. Same trade: Marriott
+        rates are reachable, Marriott's loyalty layer is not.
+      - Channel managers and PMS vendors for Homes & Villas supply — the 26 named connectivity
+        partners are interchangeable with each other, so a property manager has real choice of
+        connector while having no choice at all about Marriott being the demand endpoint.
+    evidence: >-
+      Marriott inventory is obtainable through third parties, so this is not a hard no-alternative;
+      but Marriott's own programmatic surface, Bonvoy member rates, member profile, points, digital
+      key and direct-booking funnel have no second source whatsoever. There is exactly one supplier of
+      Marriott Bonvoy.
+  exitPath:
+    value: export-on-request
+    operationCited: none
+    evidence: >-
+      No bulk export, dump, reporting or data-portability API operation exists in any published or
+      harvested Marriott artifact. The only exit is the consumer privacy right. Marriott's U.S.
+      Consumer Privacy Statement (https://www.marriott.com/about/us-consumer.mi, HTTP 200) states
+      verbatim - "You may request to access a copy of your Personal Data, including, where applicable,
+      a copy of the Personal Data you provided to us in a portable format." That is a manual, per-person,
+      request-driven export with no machine interface and no partner or property-level equivalent.
+    partnerExit: >-
+      Nothing published. There is no documented way for a connectivity partner, franchisee or travel
+      agency to extract its own booking, rate, content or performance history from Marriott.
+  identifierPortability:
+    summary: >-
+      Shared industry keys at the distribution edge, Marriott-proprietary keys everywhere behind it.
+    shared:
+      - GDS two-letter hotel chain codes, published by Marriott itself at
+        https://www.travelagents.marriott.com/travelagents/GDSResInfo.mi — AC Hotels AR, Aloft AL,
+        Autograph Collection AK, Bvlgari BG, citizenM CU, Courtyard CY, Delta DE, Design Hotels DP,
+        EDITION EB, Element EL, Fairfield FN, Four Points FP, Gaylord GE, JW Marriott MC, Le Meridien
+        MD, Luxury Collection LC, Marriott Hotels MC, Moxy OX, Protea PR, Renaissance BR, Residence Inn
+        RC, Ritz-Carlton RZ, Sheraton SI, SpringHill XV, St. Regis XR, TownePlace TO, Tribute TX, W
+        Hotels WH, Westin WI, and others. These travel between Amadeus, Sabre and Travelport unchanged.
+      - Marriott's travel-agent portal exposes a component named "newIataSearch" on its GDS pages,
+        indicating agency identity in that channel is keyed on IATA agency numbers. Not independently
+        confirmed against a rendered form, so recorded as an observation rather than a fact.
+    proprietary:
+      - MARSHA property codes. Marriott's own page JavaScript declares an "hd_marshaCode" variable in
+        its hotel-search variable block on travelagents.marriott.com — the property key is Marriott's,
+        not the industry's, even though the industry has adopted it.
+      - Marriott Bonvoy member account numbers, and internal member account type codes such as "CSID"
+        seen in the account-merge document.
+      - Reservation confirmation numbers used as the path key in the Data Collection API.
+      - Marriott property codes used as the path key in the property onboarding and credential APIs.
+      - Marriott corporate rate codes, ~40 of which are enumerated in plain text in the
+        travelagents.marriott.com page variables.
+    consequence: >-
+      A property or partner can move between GDSs on the chain code. It cannot move a Bonvoy member
+      identity, a MARSHA-keyed content record or a Marriott confirmation number anywhere at all.
+  contractualLockIn:
+    published: partial
+    verbatim:
+      - source: https://www.marriott.com/en-us/about/terms-of-use.mi
+        quote: >-
+          "use robots, spiders, or other automatic or high-volume methods or devices, or manual
+          processes to access, search, retrieve, index, monitor, scrape, copy or collect data or other
+          materials from our sites or the Marriott Information that they contain, or any aspect of the
+          Services or the Marriott Information, without our written permission (standard search engine
+          technology that links users to our Services is permitted)"
+        reading: >-
+          Programmatic access to Marriott rate, availability and content data is contractually
+          prohibited by default. Because no API is published, "our written permission" is the entire
+          access model.
+      - source: https://www.marriott.com/loyalty/terms/default.mi
+        quote: >-
+          "If the Company cancels a Member's Account for any reason, the Member may not reapply for
+          membership in the Loyalty Program except in very limited circumstances at Company's sole
+          [discretion]"
+        reading: Account termination is unilateral and effectively permanent.
+      - source: https://www.marriott.com/loyalty/terms/default.mi
+        quote: >-
+          "Points, Awards and other related benefits and services have no cash value and the Company
+          will not compensate or pay cash for any forfeited or unused Points."
+        reading: Accrued loyalty value is non-recoverable on exit.
+      - source: https://www.marriott.com/loyalty/terms/default.mi
+        quote: >-
+          "If the Loyalty Program is terminated, all unredeemed Points will be forfeited without any
+          obligation or liability, and no Award claims will be honored after the conclusion of the
+          notice period."
+        reading: >-
+          Marriott may terminate the program on six months' notice, or less where law requires, and
+          owes nothing for the balance.
+      - source: https://www.marriott.com/loyalty/terms/default.mi
+        quote: '"Loyalty Program benefits are non-transferable unless expressly stated otherwise."'
+    notPublished: >-
+      No minimum term, exclusivity clause, full-content agreement, segment fee, termination-notice
+      period or API licence is published for any Marriott partner, connectivity or GDS relationship.
+      The "Marriott Consumer License" named in the commerce-payment-processor OpenAPI points at
+      http://api.marriott.com/license, which does not resolve. No commercial terms are inferred here.
+  accessGate:
+    value: partner-only
+    whatADeveloperMustDo:
+      - >-
+        For any Marriott API: obtain a Marriott partner relationship. The Layer7 portal at
+        devportalprod.marriott.com has a signup route but an empty public catalog and an
+        authentication-gated home page, so a self-serve signup grants access to nothing published.
+      - >-
+        For Homes & Villas by Marriott Bonvoy connectivity: submit the Salesforce partner contact form
+        at https://partners.homes-and-villas.marriott.com/s/connectivity-partner-contact-us, or route
+        through one of the 26 named connectivity partners (7 designated "Elite Partners" — BookingPal,
+        Guesty, Hostfully, Hostify, NextPax, Rentals United, VacayHome Connect). No requirements or
+        terms are published on the partner page.
+      - >-
+        For travel-agency access: register on travelagents.marriott.com, which describes itself as
+        "SECURE ACCESS TO ALL OF MARRIOTT'S INTERMEDIARY PARTNER PROGRAMS" and gates commissions,
+        commission statements, direct deposit and the Hotel Excellence! training program behind it.
+      - >-
+        For scraping instead: prohibited by the Terms of Use quoted above without written permission.
+    signedArtifact: >-
+      Nothing signable is published. There is no downloadable developer agreement, API licence, data
+      licence or partner contract anywhere on any Marriott host probed.
+  distributionModel:
+    value: gds-intermediated
+    verbatim: >-
+      "Marriott makes it easy for you to do business online by participating in all Global Distribution
+      Systems (GDS) which provide real-time rates and availability for all Marriott hotels worldwide.
+      ... Marriott participates in the following GDS: Amadeus, Sabre, Travelport (Apollo/Galileo, and
+      Worldspan). Each brand has a unique two letter chain code."
+      — https://www.travelagents.marriott.com/travelagents/internethelpdesk.mi
+    alsoOperates:
+      - >-
+        Direct: Marriott.com and the Marriott Bonvoy app, with member-rate and points differentiation
+        that is unavailable through any intermediary — the explicit direct-booking counterweight to
+        OTA intermediation.
+      - >-
+        Channel manager: the Homes & Villas by Marriott Bonvoy Channel Connectivity Program, through
+        which PMS and channel-manager vendors push short-term-rental supply into Marriott's demand.
+      - >-
+        Aggregator resale: OTA and bedbank channels, undocumented by Marriott.
+    ndcPosture: >-
+      Not applicable. Marriott is a hotel group, not an airline; IATA NDC does not govern lodging
+      distribution and Marriott makes no NDC claim. The lodging analogue would be OpenTravel/OTA or
+      HTNG messaging, and Marriott publishes no conformance statement for either.
+  theFinding: >-
+    Marriott's switching cost is asymmetric by design. Downstream, at the GDS edge, Marriott is
+    deliberately standards-portable — two-letter chain codes, present in all three GDSs, so that no
+    intermediary can hold its inventory hostage. Upstream, toward anyone who wants to build on
+    Marriott, there is nothing to switch away from because there is nothing to switch onto: no public
+    API, no published contract, no export, no identifiers that leave the building. The company has
+    solved its own lock-in problem and published none of the machinery that would let a partner solve
+    theirs.
+sources:
+  - url: https://devportalprod.marriott.com/
+    type: DeveloperPortal
+    status: 200
+    note: Layer7 portal, empty anonymous catalog.
+  - url: https://devportalprod.marriott.com/api/apis
+    type: APIReference
+    status: 200
+    note: Anonymous catalog endpoint, zero items.
+  - url: https://www.travelagents.marriott.com/travelagents/GDSResInfo.mi
+    type: Documentation
+    status: 200
+    note: Full published list of Marriott GDS two-letter chain codes.
+  - url: https://www.travelagents.marriott.com/travelagents/internethelpdesk.mi
+    type: Documentation
+    status: 200
+    note: GDS Master Chain Code page; names Amadeus, Sabre, Travelport participation.
+  - url: https://homes-and-villas.marriott.com/en/connectivity-partners
+    type: Documentation
+    status: 200
+    note: 26 named connectivity partners, 7 Elite; API access via partner contact form only.
+  - url: https://partners.homes-and-villas.marriott.com/s/connectivity-partner-contact-us
+    type: Onboarding
+    status: 200
+    note: Salesforce partner contact form — the only published route to the HVMI API.
+  - url: https://www.marriott.com/en-us/about/terms-of-use.mi
+    type: TermsOfService
+    status: 200
+    note: Automated-access prohibition quoted verbatim above.
+  - url: https://www.marriott.com/loyalty/terms/default.mi
+    type: TermsOfService
+    status: 200
+    note: Marriott Bonvoy program rules; forfeiture, non-transferability, termination.
+  - url: https://www.marriott.com/about/us-consumer.mi
+    type: PrivacyPolicy
+    status: 200
+    note: Consumer data-portability right; the only exit path Marriott publishes.
+  - url: https://www.marriott.com/.well-known/security.txt
+    type: VulnerabilityDisclosure
+    status: 200
+  - url: https://hackerone.com/marriott
+    type: BugBounty
+    status: 200
+  - url: https://api.swaggerhub.com/apis/marriott-api?limit=100
+    type: APIReference
+    status: 200
+    note: Eight publicly readable Marriott OpenAPI documents.
+notes:
+  duplicateProviderWarning: >-
+    An older provider profile already exists in the network at all/marriott-international with aid
+    "marriott-international". Its apis[] entries (Availability API, Properties API, Reservations API,
+    all with baseURL https://devportalprod.marriott.com) are AE-derived scaffolding and are not
+    supported by anything found in this bootstrap: the portal's anonymous catalog is empty and no
+    such documented API exists. That profile should be reconciled against this one — survivor plus
+    tombstone — before either is published.

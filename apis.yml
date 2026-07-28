@@ -1,0 +1,165 @@
+aid: marriott
+url: https://raw.githubusercontent.com/api-evangelist/marriott/refs/heads/main/apis.yml
+name: Marriott International
+kind: company
+description: >-
+  Marriott International is the world's largest hotel group by room count, headquartered in Bethesda,
+  Maryland, United States, operating and franchising roughly thirty brands from The Ritz-Carlton, St.
+  Regis and W through Marriott Hotels, Sheraton, Westin and Courtyard down to Fairfield, Moxy and
+  StudioRes, plus the Homes & Villas by Marriott Bonvoy home-rental marketplace and the Marriott Bonvoy
+  loyalty program. It sits on the supply side of the travel distribution chain: it publishes rates and
+  availability into every major global distribution system — Marriott's own travel-agent site states it
+  "participates in the following GDS: Amadeus, Sabre, Travelport (Apollo/Galileo, and Worldspan)" — sells
+  through the OTAs, connects short-term-rental supply through a channel-connectivity partner program, and
+  spends heavily to pull demand back to direct booking on Marriott.com and the Bonvoy app. Its API posture
+  is closed. A Broadcom Layer7 developer portal exists at devportalprod.marriott.com and returns HTTP 200,
+  but its anonymous API catalog is literally empty and the portal's own home content returns HTTP 401 —
+  there is no self-serve signup, no public API reference, no published rates/availability/booking API, no
+  sandbox, no SDK, no changelog and no exit path. The only Marriott OpenAPI documents that can be read
+  without a contract are eight internal and partner-facing specifications left publicly readable on
+  SwaggerHub under the "marriott-api" owner; six are mirrored here verbatim as evidence. Everything a
+  developer would actually want is behind a partner relationship, a travel-agent registration, or a GDS
+  or channel-manager contract.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/marriott-international.png
+tags:
+- Travel
+- United States
+- Hospitality
+- Hotels
+- Booking
+- Distribution
+- Loyalty
+- Short Term Rental
+- Corporate Travel
+created: '2026-07-28'
+modified: '2026-07-28'
+specificationVersion: '0.19'
+apis:
+- aid: marriott:marriott-tip-internet-portal-api
+  name: Marriott TIP Internet Portal API
+  description: >-
+    Partner-facing API used by Marriott's in-hotel internet (TIP) provider integration to generate a guest
+    landing-page URL, validate a guest's room number and last name against the cloud PMS, and post an
+    internet purchase back to the PMS. Bearer and Basic security schemes are declared and an SSO token
+    operation is included. This is not part of any public Marriott developer program; the OpenAPI document
+    is readable on SwaggerHub under the "marriott-api" owner and the only server it names is a Marriott UAT
+    gateway host that is not open to the public.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/tip-internet-portal-api-spec/1.0.2
+  tags:
+  - Partners
+  - Property Management System
+  - Guest Services
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-tip-internet-portal-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/tip-internet-portal-api-spec/1.0.2
+- aid: marriott:marriott-loyalty-account-merge-api
+  name: Marriott Loyalty Account Merge API
+  description: >-
+    Internal Marriott Bonvoy loyalty operation that merges or transfers one member profile into another,
+    keyed on a member account type code and member account unique identifier. Documented only as an
+    OpenAPI document publicly readable on SwaggerHub under the "marriott-api" owner; the only server
+    listed is a SwaggerHub auto-mock, so no callable Marriott host is published.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/account-merge/1.0.2
+  tags:
+  - Loyalty
+  - Member Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-loyalty-account-merge-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/account-merge/1.0.2
+- aid: marriott:marriott-data-collection-api
+  name: Marriott Data Collection API
+  description: >-
+    Internal Marriott stay-event API that captures and publishes additional event data for a reservation
+    confirmation number, described by its own OpenAPI as feeding a downstream consumer called PACD and
+    associated with digital-key events. Servers named are SwaggerHub auto-mocks plus Marriott dev and test
+    gateway hosts; there is no production or public endpoint. Publicly readable on SwaggerHub under the
+    "marriott-api" owner.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/Data_Collection_API/1.0.0
+  tags:
+  - Stays
+  - Events
+  - Digital Key
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-data-collection-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/Data_Collection_API/1.0.0
+- aid: marriott:marriott-commerce-payment-processor-api
+  name: Marriott Commerce Payment Processor API
+  description: >-
+    Internal Marriott commerce API that submits a payment to a payment processor over an XML FreedomPay
+    Freeway service operation. Its OpenAPI info block names the "Marriott API Team" with contact URL
+    https://api.marriott.com/ and email apidevteam@marriott.com and a license named "Marriott Consumer
+    License" — the only place Marriott's API-team identity is publicly asserted. Declares Basic, Bearer
+    and OAuth2 authorization-code security. No public server is listed.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/commerce-payment-processor/1.0.0
+  tags:
+  - Payments
+  - Commerce
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-commerce-payment-processor-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/commerce-payment-processor/1.0.0
+- aid: marriott:marriott-finance-status-notifier-api
+  name: Marriott Finance Status Notifier API
+  description: >-
+    Internal Marriott finance application API that receives processing status for files generated by
+    Marriott's finance adapters, with status, data, config-watcher and Spring Boot actuator logger
+    operations, secured with an OAuth2 client-credentials flow. This is one of only two Marriott
+    SwaggerHub documents marked published rather than draft. No Marriott host is listed as a server.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/finance-all-statusnotifier/1.0.2
+  tags:
+  - Finance
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-finance-status-notifier-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/finance-all-statusnotifier/1.0.2
+- aid: marriott:marriott-hotel-operations-ara-api
+  name: Marriott Hotel Operations ARA Preview Submit API
+  description: >-
+    Internal Marriott hotel-operations API that submits a preview request for ARA automated room
+    assignment. The OpenAPI document declares no servers at all, which is itself the finding — the
+    operation is real but no host, environment or access route is published anywhere. Publicly readable
+    on SwaggerHub under the "marriott-api" owner.
+  humanURL: https://api.swaggerhub.com/apis/marriott-api/hotel-operations-ara-preview-submit-api/1.0.0
+  tags:
+  - Hotel Operations
+  - Room Assignment
+  properties:
+  - type: OpenAPI
+    url: openapi/marriott-hotel-operations-ara-api-openapi.json
+  - type: APIReference
+    url: https://api.swaggerhub.com/apis/marriott-api/hotel-operations-ara-preview-submit-api/1.0.0
+common:
+- type: Website
+  url: https://www.marriott.com/
+- type: DeveloperPortal
+  url: https://devportalprod.marriott.com/
+- type: TravelAgentPortal
+  url: https://www.travelagents.marriott.com/
+- type: GDSChainCodes
+  url: https://www.travelagents.marriott.com/travelagents/GDSResInfo.mi
+- type: ConnectivityPartners
+  url: https://homes-and-villas.marriott.com/en/connectivity-partners
+- type: TermsOfService
+  url: https://www.marriott.com/en-us/about/terms-of-use.mi
+- type: LoyaltyProgramTerms
+  url: https://www.marriott.com/loyalty/terms/default.mi
+- type: PrivacyPolicy
+  url: https://www.marriott.com/about/us-consumer.mi
+- type: VulnerabilityDisclosure
+  url: https://www.marriott.com/.well-known/security.txt
+- type: BugBounty
+  url: https://hackerone.com/marriott
+- type: LinkedIn
+  url: https://www.linkedin.com/company/marriott-international
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
