@@ -1,0 +1,47 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Marriott Finance Status Notifier API
+  version: 1.0.0
+extends: openapi/marriott-finance-status-notifier-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: marriott
+    x-apievangelist-source: https://api.swaggerhub.com/apis/marriott-api/
+    x-apievangelist-harvested: '2026-07-28'
+    x-apievangelist-access: internal
+    x-apievangelist-access-note: Publicly readable OpenAPI left on SwaggerHub under the "marriott-api" owner. Not
+      part of any public Marriott developer program; access requires a Marriott partner relationship.
+    x-apievangelist-note: OAuth2 clientCredentials tokenUrl is the literal placeholder http://example.com/oauth/token.
+      Exposes a Spring Boot actuator logger operation as an API. All 4xx responses declare no schema and no content
+      type.
+    x-apievangelist-error-envelope: undeclared
+    x-apievangelist-artifacts:
+      authentication: authentication/marriott-authentication.yml
+      conventions: conventions/marriott-conventions.yml
+      errors: errors/marriott-problem-types.yml
+      lifecycle: lifecycle/marriott-lifecycle.yml
+      data-model: data-model/marriott-data-model.yml
+      conformance: conformance/marriott-conformance.yml
+      agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - Only SwaggerHub auto-mock servers declared — no Marriott host published.
+    - No 429 response, no rate-limit headers and no Retry-After declared on any operation.
+    - No idempotency key parameter declared on any write operation.
+- target: $.paths['/status'].put
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/retrieveConfigsMonitoredByConfigWatcher'].get
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/actuator/loggers/ROOT'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/data'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/data'].delete
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml

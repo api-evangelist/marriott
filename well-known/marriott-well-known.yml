@@ -1,0 +1,124 @@
+generated: '2026-07-28'
+method: searched
+source: live probes of every Marriott web + API gateway host in apis.yml and OpenAPI servers[]
+summary: >-
+  Marriott publishes exactly one machine-readable /.well-known/ document, an RFC 9116 security.txt,
+  and it is served identically from the consumer site, the Homes & Villas site and the travel-agent
+  site. There is no OpenID Connect discovery document, no RFC 8414 authorization-server metadata, no
+  RFC 9727 api-catalog and no ai-plugin.json on any Marriott host — including the three API gateway
+  hosts named as servers inside Marriott's own OpenAPI documents. The gateway hosts are live behind
+  Akamai (they return real Jetty 404s and set Marriott cookies) but expose no discovery surface at all.
+hosts:
+- host: https://www.marriott.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: marriott-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://homes-and-villas.marriott.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: Byte-identical to the www.marriott.com document; not mirrored separately.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://www.travelagents.marriott.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: Byte-identical to the www.marriott.com document; not mirrored separately.
+  - path: /.well-known/openid-configuration
+    status: 302
+    note: Redirects into the travel-agent login flow rather than returning discovery metadata.
+  - path: /.well-known/oauth-authorization-server
+    status: 302
+  - path: /.well-known/api-catalog
+    status: 302
+  - path: /.well-known/ai-plugin.json
+    status: 302
+- host: https://devportalprod.marriott.com
+  note: Broadcom Layer7 developer portal. Anonymous API catalog is empty.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /swagger.json
+    status: 404
+- host: https://gatewaydsapuat3.marriott.com
+  note: >-
+    UAT API gateway named as the only server in the TIP Internet Portal OpenAPI. Host is live —
+    GET /partners/v1/internet-portal/landing-page returns HTTP 401 (not 404), confirming the
+    documented partner route exists and is credential-gated rather than absent.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /openapi.yaml
+    status: 404
+  - path: /swagger.json
+    status: 404
+  - path: /api-docs
+    status: 404
+- host: https://gatewaydsapdev1.marriott.com
+  note: Dev API gateway named in the Data Collection API OpenAPI. Live, no discovery surface.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /swagger.json
+    status: 404
+- host: https://gatewaydsaptst1.marriott.com
+  note: Test API gateway named in the Data Collection API OpenAPI. Live, no discovery surface.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /swagger.json
+    status: 404

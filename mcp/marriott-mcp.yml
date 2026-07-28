@@ -1,0 +1,60 @@
+generated: '2026-07-28'
+method: searched
+status: none
+source: >-
+  probes of mcp.marriott.com, api.marriott.com, developer.marriott.com and devportalprod.marriott.com;
+  npm registry search; Marriott's own developer, partner and travel-agent surfaces
+summary: >-
+  Marriott International publishes no MCP server. mcp.marriott.com has no DNS record, no MCP endpoint
+  is advertised on any Marriott host, and the Layer7 developer portal's anonymous catalogue is empty.
+  No `MCPServer` pointer is wired in apis.yml, and no candidate tool list is derived from the mirrored
+  OpenAPI documents — those six documents describe internal and partner-contracted operations behind a
+  credential-gated gateway, so a derived tool list would imply an agent surface that does not exist
+  and could not be called.
+server: null
+tools: []
+probes:
+- {url: 'https://mcp.marriott.com/', status: '000', note: No DNS record.}
+- {url: 'https://api.marriott.com/', status: '000', note: 'CNAME to marriott.lb.apidn.net, no A record, no TCP connection.'}
+- {url: 'https://developer.marriott.com/', status: '000', note: No DNS record.}
+- {url: 'https://devportalprod.marriott.com/api/apis', status: 200, note: 'Anonymous catalogue returns {"item":[]} — zero APIs.'}
+- {url: 'https://www.marriott.com/llms.txt', status: 404}
+- {url: 'https://www.marriott.com/.well-known/ai-plugin.json', status: 404}
+third_party:
+- name: '@striderlabs/mcp-marriott'
+  official: false
+  transport: stdio
+  registry: npm
+  version: 0.1.0
+  publisher: Strider Labs
+  url: https://www.npmjs.com/package/@striderlabs/mcp-marriott
+  mechanism: Playwright browser automation against the Marriott.com consumer website — not an API client.
+  tools_declared:
+  - status
+  - login
+  - logout
+  - search_hotels
+  - get_hotel_details
+  - get_room_options
+  - select_room
+  - add_extras
+  - checkout
+  - get_reservation
+  - modify_reservation
+  - cancel_reservation
+  - check_in
+  - get_bonvoy_status
+  - redeem_points
+  caveat: >-
+    Tool names above are transcribed from the package's own published README, not from a live
+    tools/list handshake, and none of them is backed by a Marriott API. Marriott's Terms of Use
+    prohibit "robots, spiders, or other automatic or high-volume methods or devices" without written
+    permission, so this server operates against Marriott's stated terms. It is recorded here as
+    evidence of agent demand for Marriott capability, not as a supported integration path.
+crosswalk: null
+crosswalk_reason: >-
+  A tool crosswalk is not emitted. There is no first-party MCP server and no GraphQL surface, and the
+  one third-party server is browser-automation-backed with zero overlap against the six mirrored
+  OpenAPI documents (which cover door-lock events, account merges, file-processing status, internet
+  purchases, room-assignment previews and a FreedomPay payment passthrough — none of the search,
+  book, check-in or points capability the third-party server drives). There is nothing to bind.

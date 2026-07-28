@@ -1,0 +1,44 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Marriott TIP Internet Portal API
+  version: 1.0.0
+extends: openapi/marriott-tip-internet-portal-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: marriott
+    x-apievangelist-source: https://api.swaggerhub.com/apis/marriott-api/
+    x-apievangelist-harvested: '2026-07-28'
+    x-apievangelist-access: partner-contract
+    x-apievangelist-access-note: Publicly readable OpenAPI left on SwaggerHub under the "marriott-api" owner. Not
+      part of any public Marriott developer program; access requires a Marriott partner relationship.
+    x-apievangelist-note: Partner-facing. Only Marriott document with a live, credential-gated production-adjacent
+      host (gatewaydsapuat3.marriott.com returns 401 on the documented partner route).
+    x-apievangelist-error-envelope: tip-flat-error / tip-authorization-fault
+    x-apievangelist-artifacts:
+      authentication: authentication/marriott-authentication.yml
+      conventions: conventions/marriott-conventions.yml
+      errors: errors/marriott-problem-types.yml
+      lifecycle: lifecycle/marriott-lifecycle.yml
+      data-model: data-model/marriott-data-model.yml
+      conformance: conformance/marriott-conformance.yml
+      agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - No 429 response, no rate-limit headers and no Retry-After declared on any operation.
+    - No idempotency key parameter declared on any write operation.
+    - 'Operations missing operationId: POST /v3/ent-auth/sso/token, GET /partners/v1/internet-portal/landing-page,
+      POST /partners/v1/internet-portal/guest-validation, POST /partners/v1/internet-portal/purchase-update'
+- target: $.paths['/v3/ent-auth/sso/token'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/partners/v1/internet-portal/landing-page'].get
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/partners/v1/internet-portal/guest-validation'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.paths['/partners/v1/internet-portal/purchase-update'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml

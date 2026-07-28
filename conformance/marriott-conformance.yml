@@ -1,0 +1,141 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/*.json; well-known/marriott-well-known.yml; security/marriott-vulnerability-disclosure.yml;
+  live probes of marriott.com and the Marriott API gateway hosts
+summary: >-
+  Marriott makes no published conformance claim to any standard, industry or cross-cutting. No
+  hospitality distribution standard — OpenTravel/OTA, HTNG, HEDNA, GIATA — is named anywhere on
+  marriott.com, travelagents.marriott.com, homes-and-villas.marriott.com or
+  devportalprod.marriott.com, nor in any of the six mirrored OpenAPI documents. Marriott's inventory
+  does meet a shared industry contract at the GDS edge via two-letter chain codes, but Marriott does
+  not operate or document that contract — the GDSs do. Everything below is derived from spec content,
+  not from a Marriott assertion.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Six documents, OpenAPI 3.0.0 / 3.0.3 / 3.0.4. All parse. No OpenAPI 3.1 document exists.
+- id: openapi-3.1
+  conforms: false
+  evidence: No 3.1 document published.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    securitySchemes type oauth2 in two documents — authorizationCode (Commerce Payment Processor,
+    scope MANAGE_ACCT_AUTH_E) and clientCredentials (Finance Status Notifier, scope write).
+  caveat: >-
+    The clientCredentials tokenUrl is the literal placeholder http://example.com/oauth/token, and the
+    authorizationCode URLs are root-relative paths, not absolute URLs. Neither is a resolvable
+    authorization server. No RFC 8414 metadata is published on any Marriott host.
+- id: rfc8414-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 or a login redirect on every Marriott host.
+- id: oidc
+  conforms: false
+  evidence: >-
+    No openIdConnect security scheme in any document; /.well-known/openid-configuration returns 404
+    or a login redirect on every Marriott host probed.
+- id: http-bearer-jwt
+  conforms: true
+  evidence: >-
+    securityScheme type http, scheme bearer, bearerFormat JWT in the TIP Internet Portal and Commerce
+    Payment Processor documents.
+- id: http-basic
+  conforms: true
+  evidence: >-
+    securityScheme type http, scheme basic, used to mint the bearer token at /v3/ent-auth/sso/token.
+- id: mutual-tls
+  conforms: false
+  evidence: No mutualTLS security scheme declared.
+- id: fapi
+  conforms: false
+  evidence: >-
+    No FAPI profile claim, no PAR, no PKCE declaration, no proof-of-possession, no signed request
+    objects — despite one document handling payment submission.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    No application/problem+json anywhere. Five mutually incompatible proprietary JSON error envelopes
+    across the estate. See errors/marriott-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: >-
+    /.well-known/security.txt returns 200 on www.marriott.com, homes-and-villas.marriott.com and
+    www.travelagents.marriott.com, with Contact, Expires, Policy, Preferred-languages, Hiring and
+    Acknowledgments fields. Expires 2026-12-31.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404 or a login redirect on every Marriott host.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation response header declared on any operation.
+- id: rfc6585-rate-limit
+  conforms: false
+  evidence: No 429 response and no Retry-After / RateLimit-* header declared on any operation.
+- id: json-api
+  conforms: false
+  evidence: No JSON:API media type, document structure or link envelope used.
+- id: hal-hateoas
+  conforms: false
+  evidence: No hypermedia links in any response schema.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No AsyncAPI document, no webhook, no callback, no streaming endpoint. Two operations return 202
+    Accepted with no published completion channel.
+- id: opentravel-ota
+  conforms: false
+  evidence: >-
+    Not referenced anywhere on any Marriott surface. The mirrored documents are ordinary REST/JSON
+    with Marriott-proprietary path namespaces and enumerations.
+- id: htng
+  conforms: false
+  evidence: Not referenced anywhere on any Marriott surface.
+- id: hedna
+  conforms: false
+  evidence: Not referenced anywhere on any Marriott surface.
+- id: giata
+  conforms: false
+  evidence: >-
+    Property identity is keyed on Marriott's own MARSHA codes, not on a shared industry property ID.
+- id: gds-chain-codes
+  conforms: true
+  evidence: >-
+    Marriott publishes its two-letter GDS chain codes per brand at
+    https://www.travelagents.marriott.com/travelagents/GDSResInfo.mi and states participation in
+    Amadeus, Sabre and Travelport. This is the one place Marriott meets a shared industry contract.
+  caveat: >-
+    The contract is operated by the GDSs, not by Marriott. Marriott publishes the code list, not the
+    interface.
+- id: iata-ndc
+  conforms: false
+  evidence: >-
+    Not applicable — NDC governs airline distribution, not lodging. Marriott makes no NDC claim and
+    none is expected.
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    Marriott operates in the EU and its consumer privacy statement describes a data-portability right,
+    but no GDPR conformance statement, DPA, SCC or record-of-processing is published for any API or
+    partner integration.
+- id: pci-dss
+  conforms: unknown
+  evidence: >-
+    Marriott handles card payments and one mirrored document submits payments to FreedomPay, but no
+    PCI DSS Attestation of Compliance, SAQ level or cardholder-data-environment statement is published
+    on any Marriott host. Searched; nothing found.
+- id: soc2
+  conforms: unknown
+  evidence: No SOC 2 report, bridge letter or availability statement published. Searched; nothing found.
+- id: iso-27001
+  conforms: unknown
+  evidence: No ISO 27001 certificate or statement of applicability published. Searched; nothing found.
+compliance_program:
+  published: false
+  trust_center: null
+  certifications: []
+  note: >-
+    trust.marriott.com and security.marriott.com do not resolve. No trust centre, compliance page,
+    certification list or downloadable audit artifact exists on any Marriott host probed. This is why
+    no `Compliance` or `TrustCenter` pointer is wired in apis.yml — there is nothing to point at.

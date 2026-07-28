@@ -1,0 +1,28 @@
+generated: '2026-07-28'
+method: derived
+source: openapi/marriott-commerce-payment-processor-api-openapi.json, openapi/marriott-finance-status-notifier-api-openapi.json
+schemes:
+- name: OAuth2
+  source: openapi/marriott-commerce-payment-processor-api-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /v3/ent-auth/sso/authorize
+    tokenUrl: /v3/ent-auth/sso/token
+- name: application
+  source: openapi/marriott-finance-status-notifier-api-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: http://example.com/oauth/token
+scopes:
+- scope: MANAGE_ACCT_AUTH_E
+  description: Grants access to High Risk Transaction to update
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/marriott-commerce-payment-processor-api-openapi.json
+- scope: write
+  description: allows modifying resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/marriott-finance-status-notifier-api-openapi.json

@@ -1,0 +1,226 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/marriott-data-collection-api-openapi.json,
+  openapi/marriott-hotel-operations-ara-api-openapi.json,
+  openapi/marriott-loyalty-account-merge-api-openapi.json,
+  openapi/marriott-tip-internet-portal-api-openapi.json,
+  openapi/marriott-finance-status-notifier-api-openapi.json
+format: proprietary
+rfc9457: false
+summary: >-
+  Marriott publishes no error reference of any kind — no public docs page, no error-code registry, no
+  status-code table. Everything below is derived from the 4xx/5xx responses declared inside the six
+  Marriott OpenAPI documents mirrored in openapi/. None of them uses application/problem+json; all use
+  application/json with a Marriott-proprietary envelope. Critically, the envelope is NOT consistent
+  across Marriott's own estate: four mutually incompatible error shapes appear across five documents
+  (errors[] with code/message, errors[] with errorCode/errorMsg, error[] with code/message, and a flat
+  status/code/message object plus a SOAP-style faultcode/faultstring object). Two documents declare
+  4xx responses with no schema and no content type at all.
+envelopes:
+- id: osd-errors-array
+  shape: '{ "errors": [ { "code, message, timestamp, source?, fields?" } ] }'
+  wrapper_field: errors
+  code_field: code
+  message_field: message
+  required: [code, message, timestamp]
+  code_pattern_observed: 'OSD-DCS-3900'
+  source: openapi/marriott-data-collection-api-openapi.json
+  note: >-
+    Namespaced dotted-hyphen error codes (system-service-number). `source` names the upstream system
+    that produced the error, e.g. "hotelops-osd-data-collection" or an Amadeus web-service name.
+- id: hotelops-errors-array
+  shape: '{ "errors": [ { "errorCode, errorMsg, timestamp, source?, fields?" } ] }'
+  wrapper_field: errors
+  code_field: errorCode
+  message_field: errorMsg
+  required: [errorCode, errorMsg, timestamp]
+  code_pattern_observed: 'ARAXXX'
+  field_errors: >-
+    fields[] carries {key, value, pattern} — the offending field name, the value supplied, and the
+    regex it failed, e.g. key "propertyCode" with pattern "/^[a-zA-Z]{5}$/".
+  source: openapi/marriott-hotel-operations-ara-api-openapi.json
+  note: >-
+    Same intent as osd-errors-array but with different property names — errorCode/errorMsg instead of
+    code/message. A client cannot parse both with one deserializer.
+- id: loyalty-error-array
+  shape: '{ "error": [ { "code, message" } ] }'
+  wrapper_field: error
+  code_field: code
+  message_field: message
+  required: []
+  source: openapi/marriott-loyalty-account-merge-api-openapi.json
+  note: Singular "error" wrapper holding an array; no timestamp, no required fields.
+- id: tip-flat-error
+  shape: '{ "status": "failed", "code": "...", "message": "..." }'
+  wrapper_field: null
+  code_field: code
+  message_field: message
+  required: [status, code, message]
+  source: openapi/marriott-tip-internet-portal-api-openapi.json
+  variants:
+  - name: PreconnectError
+    adds: 'landingPageURI — a marriott.com fallback URL the portal should redirect the guest to.'
+  note: Flat object, no array, plus a literal "status":"failed" discriminator string.
+- id: tip-authorization-fault
+  shape: '{ "faultcode": "Server", "faultstring": "1012100 - Credentials invalid or missing." }'
+  wrapper_field: null
+  code_field: faultcode
+  message_field: faultstring
+  required: [faultcode, faultstring]
+  code_pattern_observed: '1012100'
+  source: openapi/marriott-tip-internet-portal-api-openapi.json
+  note: >-
+    SOAP-fault vocabulary surfacing on a JSON REST 401. The numeric code is embedded in the message
+    string rather than in its own field, so it must be string-parsed.
+- id: undeclared
+  shape: null
+  source: openapi/marriott-finance-status-notifier-api-openapi.json
+  note: >-
+    All 4xx responses on the Finance Status Notifier API declare a description only — no content
+    type and no schema. A client has no contract for what the body will contain.
+problems:
+- status: 400
+  envelope: osd-errors-array
+  title: Bad Request
+  example_code: OSD-DCS-3900
+  example_message: Confirmation Number Missing
+  source_operation: openapi/marriott-data-collection-api-openapi.json#DataCollectionEvent
+- status: 404
+  envelope: osd-errors-array
+  title: Request Not Found
+  source_operation: openapi/marriott-data-collection-api-openapi.json#DataCollectionEvent
+- status: 422
+  envelope: osd-errors-array
+  title: Unprocessable Entity
+  source_operation: openapi/marriott-data-collection-api-openapi.json#DataCollectionEvent
+- status: 500
+  envelope: osd-errors-array
+  title: Server Error
+  source_operation: openapi/marriott-data-collection-api-openapi.json#DataCollectionEvent
+- status: 503
+  envelope: osd-errors-array
+  title: Service Unavailable
+  source_operation: openapi/marriott-data-collection-api-openapi.json#DataCollectionEvent
+- status: 400
+  envelope: hotelops-errors-array
+  title: Bad Request
+  source_operation: openapi/marriott-hotel-operations-ara-api-openapi.json#POST /v1/hotelops/ara/preview-submit
+- status: 422
+  envelope: hotelops-errors-array
+  title: Unprocessable Entity
+  source_operation: openapi/marriott-hotel-operations-ara-api-openapi.json#POST /v1/hotelops/ara/preview-submit
+- status: 500
+  envelope: hotelops-errors-array
+  title: Internal Server Error
+  source_operation: openapi/marriott-hotel-operations-ara-api-openapi.json#POST /v1/hotelops/ara/preview-submit
+- status: 400
+  envelope: loyalty-error-array
+  title: Invalid request
+  source_operation: openapi/marriott-loyalty-account-merge-api-openapi.json#POST /loyalty/v1/account-merge
+- status: 500
+  envelope: loyalty-error-array
+  title: Server error
+  source_operation: openapi/marriott-loyalty-account-merge-api-openapi.json#POST /loyalty/v1/account-merge
+- status: 400
+  envelope: tip-flat-error
+  title: Invalid request to token endpoint.
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /v3/ent-auth/sso/token
+- status: 401
+  envelope: tip-authorization-fault
+  title: Unauthorized. Invalid client credentials.
+  example_message: 1012100 - Credentials invalid or missing.
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /v3/ent-auth/sso/token
+- status: 500
+  envelope: tip-flat-error
+  title: Internal Server Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /v3/ent-auth/sso/token
+- status: 400
+  envelope: tip-flat-error
+  variant: PreconnectError
+  title: Invalid input
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#GET /partners/v1/internet-portal/landing-page
+- status: 401
+  envelope: tip-authorization-fault
+  title: Authorization Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#GET /partners/v1/internet-portal/landing-page
+- status: 500
+  envelope: tip-flat-error
+  variant: PreconnectError
+  title: Internal Server Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#GET /partners/v1/internet-portal/landing-page
+- status: 400
+  envelope: tip-flat-error
+  title: Invalid input
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/guest-validation
+- status: 401
+  envelope: tip-authorization-fault
+  title: Authorization Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/guest-validation
+- status: 404
+  envelope: tip-flat-error
+  title: Guest details not found.
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/guest-validation
+- status: 500
+  envelope: tip-flat-error
+  title: Internal Server Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/guest-validation
+- status: 400
+  envelope: tip-flat-error
+  title: Invalid input
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/purchase-update
+- status: 401
+  envelope: tip-authorization-fault
+  title: Authorization Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/purchase-update
+- status: 404
+  envelope: tip-flat-error
+  title: Guest details not found.
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/purchase-update
+- status: 500
+  envelope: tip-flat-error
+  title: Internal Server Error
+  source_operation: openapi/marriott-tip-internet-portal-api-openapi.json#POST /partners/v1/internet-portal/purchase-update
+- status: 400
+  envelope: undeclared
+  title: Invalid Input Data
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#updateProcessingStatus
+- status: 401
+  envelope: undeclared
+  title: Unauthorized
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#updateProcessingStatus
+- status: 404
+  envelope: undeclared
+  title: Adapter entry for desired file could not found
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#updateProcessingStatus
+- status: 400
+  envelope: undeclared
+  title: No Content
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#retrieveConfigsMonitoredByConfigWatcher
+- status: 400
+  envelope: undeclared
+  title: Invalid Input Data
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#changeLogger
+- status: 400
+  envelope: undeclared
+  title: Error Ocurred while loading the data in the DB
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#createAdapterProcessingStatusPefTestData
+- status: 404
+  envelope: undeclared
+  title: The data endpoint is not available for this environment
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#createAdapterProcessingStatusPefTestData
+- status: 400
+  envelope: undeclared
+  title: Error in deleting data
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#deletePerfTestData
+- status: 404
+  envelope: undeclared
+  title: The data endpoint is not available for this environment
+  source_operation: openapi/marriott-finance-status-notifier-api-openapi.json#deletePerfTestData
+gaps:
+- No 429 / rate-limit response is declared on any of the thirteen operations across all six documents.
+- No 403 response is declared anywhere, despite three documents declaring OAuth2 or scope-bearing auth.
+- No Retry-After, RateLimit-* or Sunset response header is declared on any operation.
+- >-
+  No public error-code registry exists. The example codes above (OSD-DCS-3900, ARAXXX, 1012100) are the
+  only Marriott error codes that can be read anywhere without a partner contract.

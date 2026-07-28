@@ -1,0 +1,42 @@
+generated: '2026-07-28'
+method: derived
+source: openapi/marriott-commerce-payment-processor-api-openapi.json, openapi/marriott-finance-status-notifier-api-openapi.json,
+  openapi/marriott-tip-internet-portal-api-openapi.json
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/marriott-commerce-payment-processor-api-openapi.json
+  - openapi/marriott-tip-internet-portal-api-openapi.json
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/marriott-commerce-payment-processor-api-openapi.json
+  - openapi/marriott-tip-internet-portal-api-openapi.json
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /v3/ent-auth/sso/authorize
+    tokenUrl: /v3/ent-auth/sso/token
+    scopes: 1
+  sources:
+  - openapi/marriott-commerce-payment-processor-api-openapi.json
+- name: application
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: http://example.com/oauth/token
+    scopes: 1
+  sources:
+  - openapi/marriott-finance-status-notifier-api-openapi.json

@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Marriott Commerce Payment Processor API
+  version: 1.0.0
+extends: openapi/marriott-commerce-payment-processor-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: marriott
+    x-apievangelist-source: https://api.swaggerhub.com/apis/marriott-api/
+    x-apievangelist-harvested: '2026-07-28'
+    x-apievangelist-access: internal
+    x-apievangelist-access-note: Publicly readable OpenAPI left on SwaggerHub under the "marriott-api" owner. Not
+      part of any public Marriott developer program; access requires a Marriott partner relationship.
+    x-apievangelist-note: Only document asserting Marriott API-team identity (apidevteam@marriott.com, api.marriott.com)
+      — none of those URLs resolve publicly. JSON envelope wrapping an XML FreedomPay Freeway payload.
+    x-apievangelist-error-envelope: none declared
+    x-apievangelist-artifacts:
+      authentication: authentication/marriott-authentication.yml
+      conventions: conventions/marriott-conventions.yml
+      errors: errors/marriott-problem-types.yml
+      lifecycle: lifecycle/marriott-lifecycle.yml
+      data-model: data-model/marriott-data-model.yml
+      conformance: conformance/marriott-conformance.yml
+      agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - Only SwaggerHub auto-mock servers declared — no Marriott host published.
+    - No 429 response, no rate-limit headers and no Retry-After declared on any operation.
+    - No idempotency key parameter declared on any write operation.
+    - 'Operations missing operationId: POST /freeway/service'
+- target: $.paths['/freeway/service'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml

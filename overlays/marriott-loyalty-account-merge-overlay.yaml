@@ -1,0 +1,36 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Marriott Loyalty Account Merge API
+  version: 1.0.0
+extends: openapi/marriott-loyalty-account-merge-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: marriott
+    x-apievangelist-source: https://api.swaggerhub.com/apis/marriott-api/
+    x-apievangelist-harvested: '2026-07-28'
+    x-apievangelist-access: internal
+    x-apievangelist-access-note: Publicly readable OpenAPI left on SwaggerHub under the "marriott-api" owner. Not
+      part of any public Marriott developer program; access requires a Marriott partner relationship.
+    x-apievangelist-note: Irreversible Bonvoy profile merge with no idempotency contract and no Marriott host published
+      — only a SwaggerHub auto-mock.
+    x-apievangelist-error-envelope: loyalty-error-array
+    x-apievangelist-artifacts:
+      authentication: authentication/marriott-authentication.yml
+      conventions: conventions/marriott-conventions.yml
+      errors: errors/marriott-problem-types.yml
+      lifecycle: lifecycle/marriott-lifecycle.yml
+      data-model: data-model/marriott-data-model.yml
+      conformance: conformance/marriott-conformance.yml
+      agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - No securitySchemes declared — auth is implied by network placement behind the Marriott gateway.
+    - Only SwaggerHub auto-mock servers declared — no Marriott host published.
+    - No 429 response, no rate-limit headers and no Retry-After declared on any operation.
+    - No idempotency key parameter declared on any write operation.
+    - 'Operations missing operationId: POST /loyalty/v1/account-merge'
+- target: $.paths['/loyalty/v1/account-merge'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml

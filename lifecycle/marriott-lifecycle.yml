@@ -1,0 +1,114 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  live probes of marriott.com, devportalprod.marriott.com, status.marriott.com,
+  homes-and-villas.marriott.com, travelagents.marriott.com; derived from openapi/*.json
+summary: >-
+  Marriott publishes no API lifecycle machinery whatsoever — no versioning policy, no deprecation
+  policy, no sunset commitment, no changelog, no release notes, no roadmap, no SLA and no status page.
+  status.marriott.com does not resolve (no DNS record). The only lifecycle signal that exists is the
+  SwaggerHub publication state of the six mirrored documents, and even that contradicts Marriott's
+  own posture: four of six are still drafts (X-Published false) yet all are world-readable.
+versioning:
+  scheme: uri-path
+  policy_url: null
+  policy_published: false
+  current: mixed
+  observed:
+  - document: TIP Internet Portal
+    version: 1.0.2
+    paths: /v3/ent-auth/, /partners/v1/
+  - document: Loyalty Account Merge
+    version: 1.0.2
+    paths: /loyalty/v1/
+  - document: Data Collection API
+    version: 1.0.0
+    paths: /osd/v1/
+  - document: Commerce Payment Processor
+    version: 1.0.0
+    paths: /freeway/ (unversioned)
+  - document: Finance Status Notifier
+    version: 1.0.2
+    paths: /status, /data, /actuator/ (unversioned)
+  - document: Hotel Operations ARA Preview Submit
+    version: 1.0.0
+    paths: /v1/hotelops/
+  note: >-
+    Document versions are SwaggerHub artifact versions, not published API versions. Marriott does not
+    publish a version-support window, a breaking-change definition or a migration path for any of them.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  evidence: >-
+    Zero operations across the six documents carry `deprecated: true`. No Sunset or Deprecation
+    response header is declared anywhere. No deprecation policy page exists on any Marriott host.
+sla:
+  url: null
+  published: false
+  uptime_target: null
+  note: >-
+    No SLA, uptime commitment, support-response target or incident-communication policy is published
+    for any Marriott API, partner integration or connectivity program.
+status_page:
+  url: null
+  probes:
+  - url: https://status.marriott.com/
+    status: '000'
+    note: No DNS record.
+  - url: https://developer.marriott.com/
+    status: '000'
+    note: No DNS record.
+  - url: https://devportalprod.marriott.com/
+    status: 200
+    note: Layer7 portal is live but publishes no incident or status surface.
+changelog:
+  url: null
+  published: false
+  note: >-
+    No changelog, release-notes or what's-new page exists on any Marriott developer, partner or
+    travel-agent surface. See changelog/ — deliberately not created; there is nothing to capture.
+roadmap:
+  url: null
+  published: false
+publication_state:
+  source: SwaggerHub owner "marriott-api", fetched 2026-07-28
+  documents:
+  - name: tip-internet-portal-api-spec
+    version: 1.0.2
+    swaggerhub_published: true
+    private: false
+  - name: finance-all-statusnotifier
+    version: 1.0.2
+    swaggerhub_published: true
+    private: false
+  - name: account-merge
+    version: 1.0.2
+    swaggerhub_published: false
+    private: false
+  - name: Data_Collection_API
+    version: 1.0.0
+    swaggerhub_published: false
+    private: false
+  - name: commerce-payment-processor
+    version: 1.0.0
+    swaggerhub_published: false
+    private: false
+  - name: hotel-operations-ara-preview-submit-api
+    version: 1.0.0
+    swaggerhub_published: false
+    private: false
+  finding: >-
+    Four of the six are unpublished SwaggerHub drafts that are nonetheless marked X-Private false, so
+    they are readable by anyone with the raw api.swaggerhub.com URL while appearing gated in the
+    SwaggerHub UI (which 302s to login). Draft status is the closest thing Marriott has to a lifecycle
+    stage, and it is not a real access control.
+gaps:
+- No status page — an integrator cannot learn whether a Marriott gateway is degraded.
+- No deprecation policy — a partner has no notice period for a breaking change.
+- No changelog — a partner cannot diff what changed between 1.0.0 and 1.0.2.
+- No SLA — nothing is committed for availability or support response.
+- No roadmap — nothing is signalled about future API surface.

@@ -1,0 +1,146 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/*.json (six Marriott OpenAPI documents), plus live probes of
+  gatewaydsapuat3.marriott.com, gatewaydsapdev1.marriott.com and gatewaydsaptst1.marriott.com
+docs: null
+summary: >-
+  Marriott publishes no API design guide, style guide, conventions page or developer documentation of
+  any kind. Every convention recorded here is derived from the six OpenAPI documents Marriott left
+  publicly readable on SwaggerHub. Within those six documents the conventions are only partly
+  consistent: a correlation-id request header appears in four of six documents and is the one genuine
+  house convention; caller identity headers are spelled three different ways (client_id, client-id,
+  and none at all); the error envelope has four incompatible shapes; and there is no idempotency,
+  pagination, rate-limit or versioning-header contract anywhere in the estate.
+authentication:
+  style: mixed
+  see: authentication/marriott-authentication.yml
+  patterns:
+  - >-
+    HTTP Basic used to mint a Bearer JWT at POST /v3/ent-auth/sso/token, then Bearer JWT on every
+    subsequent call. This is the documented pattern for the TIP Internet Portal partner API and is
+    described in prose inside that document's info.description.
+  - OAuth2 authorizationCode with a single scope, MANAGE_ACCT_AUTH_E (Commerce Payment Processor).
+  - OAuth2 clientCredentials with a single scope, write (Finance Status Notifier).
+  - >-
+    No security scheme at all on three of six documents (Data Collection, Hotel Operations ARA,
+    Loyalty Account Merge) — those rely on network placement behind the Marriott gateway.
+  token_endpoint: /v3/ent-auth/sso/token
+  authorize_endpoint: /v3/ent-auth/sso/authorize
+  note: >-
+    Both endpoints are declared as root-relative paths, not absolute URLs, so the token endpoint is
+    resolved against whichever gateway host the caller was assigned.
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key, Idempotency-Token, request-key or equivalent parameter is declared on any of
+    the thirteen operations across the six documents, and no operation description mentions safe
+    retry. This matters most for POST /loyalty/v1/account-merge (an irreversible profile merge),
+    POST /freeway/service (a payment submission) and POST /partners/v1/internet-portal/purchase-update
+    (a billable in-hotel internet purchase) — all three are non-idempotent writes with money or
+    identity consequences and no replay protection published.
+request_tracing:
+  header: correlation-id
+  in: header
+  required_in:
+  - openapi/marriott-data-collection-api-openapi.json
+  - openapi/marriott-hotel-operations-ara-api-openapi.json
+  optional_in:
+  - openapi/marriott-commerce-payment-processor-api-openapi.json
+  - openapi/marriott-loyalty-account-merge-api-openapi.json
+  absent_in:
+  - openapi/marriott-tip-internet-portal-api-openapi.json
+  - openapi/marriott-finance-status-notifier-api-openapi.json
+  response_echo: false
+  note: >-
+    correlation-id is Marriott's most consistent cross-cutting convention — present in four of six
+    documents, required in two. No document declares it as a response header, so a caller cannot
+    confirm the value the gateway actually logged.
+caller_identity:
+  headers_observed:
+  - name: client_id
+    in: header
+    required: true
+    source: openapi/marriott-loyalty-account-merge-api-openapi.json
+  - name: operator_id
+    in: header
+    required: true
+    source: openapi/marriott-loyalty-account-merge-api-openapi.json
+  - name: client-id
+    in: header
+    required: true
+    source: openapi/marriott-hotel-operations-ara-api-openapi.json
+  note: >-
+    The same concept is spelled client_id in one document and client-id in another. There is no
+    published rule for which form a given Marriott gateway route expects.
+pagination:
+  supported: false
+  evidence: >-
+    Every one of the thirteen operations is either a single-resource write or a single-object read.
+    No collection endpoint, no limit/offset/cursor/page parameter and no paging envelope exists
+    anywhere in the estate. Nothing is published about pagination because nothing paginates.
+filtering_and_expansion:
+  supported: false
+  evidence: >-
+    One query filter exists in the whole estate — the optional `adapters` query parameter on
+    GET /retrieveConfigsMonitoredByConfigWatcher. There is no field-selection, sparse-fieldset,
+    include/expand or projection convention.
+versioning:
+  scheme: uri-path
+  observed_prefixes:
+  - /v1/ (hotel operations, partners, loyalty)
+  - /v3/ (enterprise auth / SSO token)
+  - /osd/v1/ (on-stay data)
+  - unversioned (/status, /data, /freeway/service, /actuator/loggers/ROOT)
+  header_versioning: false
+  media_type_versioning: false
+  policy_published: false
+  note: >-
+    Major version sits in the path where it is present at all, but four of thirteen operations carry
+    no version segment. Marriott publishes no versioning policy, no version-support window and no
+    version-negotiation header.
+rate_limiting:
+  documented: false
+  headers: []
+  evidence: >-
+    No 429 response, no RateLimit-* or X-RateLimit-* response header and no Retry-After is declared
+    on any operation in any document. Marriott publishes no rate-limit policy.
+  see: null
+error_envelope:
+  consistent: false
+  shapes: 5
+  see: errors/marriott-problem-types.yml
+  rfc9457: false
+  content_type: application/json
+media_types:
+  request: [application/json, application/x-www-form-urlencoded]
+  response: [application/json]
+  note: >-
+    POST /freeway/service is a JSON envelope wrapping an XML FreedomPay Freeway payload — the
+    transport is REST/JSON but the payment message itself is XML passed through as a string.
+    POST /v3/ent-auth/sso/token takes application/x-www-form-urlencoded, OAuth-token style.
+naming:
+  paths: kebab-case (account-merge, data-collection, preview-submit, purchase-update, landing-page)
+  properties: lowerCamelCase (confirmationNumber, propertyCode, memberAccountTypeCode, arrivalDate)
+  headers: inconsistent (correlation-id and client-id kebab; client_id and operator_id snake)
+  enums: >-
+    UPPER_SNAKE and short codes, e.g. memberAccountTypeCode "CSID", accountStatusTypeCode "23",
+    SourceEnum / VendorTypeEnum / DownloadTypeEnum / DeviceOSEnum / ProcessingStatusEnum /
+    SystemIdentifierEnum.
+async_and_events:
+  webhooks: false
+  callbacks: false
+  streaming: false
+  note: >-
+    Two operations return 202 Accepted (Data Collection and ARA Preview Submit) — work is queued —
+    but neither declares a callback, a webhook, a polling location or a status resource. There is no
+    published way to learn the outcome of an accepted request.
+environments:
+  see: sandbox/marriott-sandbox.yml
+cross_links:
+  authentication: authentication/marriott-authentication.yml
+  scopes: scopes/marriott-scopes.yml
+  errors: errors/marriott-problem-types.yml
+  lifecycle: lifecycle/marriott-lifecycle.yml
+  data_model: data-model/marriott-data-model.yml

@@ -1,0 +1,84 @@
+generated: '2026-07-28'
+method: probed
+source: openapi/*.json servers[] plus live HTTP probes on 2026-07-28
+provider_sandbox: false
+summary: >-
+  Marriott publishes no sandbox, no test account, no test credentials, no mock server and no
+  developer console. What does exist is an accident of publication: four of the six OpenAPI documents
+  Marriott left world-readable on SwaggerHub declare SwaggerHub auto-mock servers, and those mocks are
+  live and anonymously callable by anyone. They are operated by SwaggerHub, not by Marriott, and they
+  return the example values in Marriott's own specification rather than any Marriott data. This
+  artifact records them as a probed fact about the estate — it is deliberately NOT wired as a
+  `Sandbox` pointer in apis.yml, because Marriott offers no sandbox and it would be wrong to score one.
+test_credentials: null
+test_values: null
+key_prefixes: null
+time_simulation: null
+fixtures: null
+environments:
+- id: swaggerhub-auto-mock
+  operator: SwaggerHub (SmartBear), not Marriott
+  auth: none
+  live: true
+  probed: '2026-07-28'
+  endpoints:
+  - url: https://virtserver.swaggerhub.com/marriott-api/Data_Collection_API/1.0.0
+    probe: POST /osd/v1/stays/12345/data-collection
+    status: 202
+  - url: https://virtserver.swaggerhub.com/marriott-api/Digital_Key_Events_Data_Collection/1.0.0
+    probe: not individually probed
+  - url: https://virtserver.swaggerhub.com/marriott-api/lylt-v1-merge-profile/1.0.1
+    probe: POST /loyalty/v1/account-merge
+    status: 200
+  - url: https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2
+    probe: GET /retrieveConfigsMonitoredByConfigWatcher
+    status: 200
+  - url: https://virtserver.swaggerhub.com/marriott-api/fas-oauthapp/1.0.0 - To be updated
+    probe: not probed
+    note: >-
+      The server URL in Marriott's own document literally contains the trailing text
+      " - To be updated". It is not a valid URL.
+  - url: https://virtserver.swaggerhub.com/marriott-api/commerce-payment-processor/1.0.0
+    probe: not probed
+  note: >-
+    These mocks accept anonymous requests and return spec examples. They are a real, callable surface
+    derived from Marriott's specifications, and they exist only because those specifications were
+    left public. They contain no Marriott data and route to no Marriott system.
+- id: marriott-uat-gateway
+  operator: Marriott
+  host: https://gatewaydsapuat3.marriott.com
+  auth: required
+  self_serve: false
+  live: true
+  probed: '2026-07-28'
+  evidence:
+  - {probe: 'GET /', status: 404, note: 'Live Jetty behind Akamai; sets Marriott _abck/bm_sz cookies.'}
+  - {probe: 'GET /partners/v1/internet-portal/landing-page', status: 401, note: 'Documented partner route exists and is credential-gated, not absent.'}
+  - {probe: 'POST /v3/ent-auth/sso/token', status: 405, note: 'Method-not-allowed on a bare probe — the enterprise SSO token route responds.'}
+  - {probe: '/openapi.json, /openapi.yaml, /swagger.json, /api-docs', status: 404}
+  note: >-
+    Named as the only server in the TIP Internet Portal partner API. This is the closest thing to a
+    Marriott test environment that is externally reachable, and it is reachable only in the sense that
+    it answers with 401. There is no way to obtain a credential for it without a partner contract.
+- id: marriott-dev-and-test-gateways
+  operator: Marriott
+  hosts:
+  - https://gatewaydsapdev1.marriott.com
+  - https://gatewaydsaptst1.marriott.com
+  auth: required
+  self_serve: false
+  live: true
+  probed: '2026-07-28'
+  evidence:
+  - {probe: 'GET /', status: 404, note: Live behind Akamai; no discovery surface.}
+  note: Named as servers in the Data Collection API document.
+- id: no-servers-declared
+  documents:
+  - openapi/marriott-hotel-operations-ara-api-openapi.json
+  note: >-
+    The Hotel Operations ARA document declares an empty servers[] array — no host, no environment,
+    no access route of any kind is published for that operation.
+finding: >-
+  A developer cannot test anything Marriott operates. The only anonymously callable endpoints bearing
+  Marriott's name are SwaggerHub mocks that Marriott did not intend to publish, and the only Marriott
+  hosts that answer are UAT and dev gateways that answer 401.

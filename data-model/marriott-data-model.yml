@@ -1,0 +1,216 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/marriott-data-collection-api-openapi.json,
+  openapi/marriott-loyalty-account-merge-api-openapi.json,
+  openapi/marriott-tip-internet-portal-api-openapi.json,
+  openapi/marriott-hotel-operations-ara-api-openapi.json,
+  openapi/marriott-commerce-payment-processor-api-openapi.json,
+  openapi/marriott-finance-status-notifier-api-openapi.json
+docs: null
+summary: >-
+  Marriott publishes no object reference. This entity graph is derived entirely from the
+  components.schemas of the six mirrored OpenAPI documents. There is no single shared model: each
+  document carries its own private schema set with no $ref reuse across documents, so what follows is
+  six disjoint island models rather than one estate model. The three identifiers that actually tie
+  Marriott's world together — the MARSHA property code, the reservation confirmation number and the
+  Bonvoy member account number — appear as bare strings in multiple documents with no shared schema,
+  no format, no pattern (except one regex leaked in an error example) and no canonical definition.
+identifiers:
+- id: propertyCode
+  aka: MARSHA code
+  type: string
+  pattern_observed: '/^[a-zA-Z]{5}$/'
+  pattern_source: >-
+    openapi/marriott-hotel-operations-ara-api-openapi.json — the ErrorField example leaks the
+    validation regex for propertyCode; the schema itself declares no pattern.
+  appears_in:
+  - Reservation.propertyCode (Data Collection API)
+  - propertyCode query parameter (TIP Internet Portal landing-page)
+  - PreviewSubmitRequest (Hotel Operations ARA)
+  - PropertyCodeArray (Finance Status Notifier)
+  portable: false
+  note: Marriott-proprietary property key. Five alpha characters. No shared industry equivalent published.
+- id: confirmationNumber
+  type: string
+  appears_in:
+  - path parameter {confirmation-number} on POST /osd/v1/stays/{confirmation-number}/data-collection
+  - Reservation.confirmationNumber (Data Collection API)
+  portable: false
+  note: Marriott reservation key; also the resource key for the stay-event surface.
+- id: memberAccountUniqueIdValue
+  type: string
+  qualified_by: memberAccountTypeCode
+  type_codes_observed: ['CSID']
+  appears_in:
+  - SourceMemberAccountUniqueIdentifier (Loyalty Account Merge)
+  - DestinationMemberAccountUniqueIdentifier (Loyalty Account Merge)
+  portable: false
+  note: >-
+    Bonvoy member identity is a composite of a type code and a value. "CSID" is the only type code
+    published anywhere. There is no schema, no enum and no reference list for the type codes.
+- id: altCustomerId
+  type: string
+  appears_in: [Customer (Data Collection API)]
+  portable: false
+  note: An alternate customer identifier with no published definition of what it is alternate to.
+- id: guestDeviceId
+  type: string
+  appears_in: [Device (Data Collection API)]
+  portable: false
+- id: lockId
+  type: string
+  appears_in: [Lock (Data Collection API)]
+  portable: false
+  note: Physical door-lock identity in the digital-key event stream.
+- id: client_id / client-id / operator_id
+  type: string
+  in: header
+  appears_in:
+  - Loyalty Account Merge (client_id required, operator_id required)
+  - Hotel Operations ARA (client-id required)
+  portable: false
+  note: Caller identity, spelled two different ways across two documents. See conventions/.
+entities:
+- name: DataCollectionRequest
+  domain: on-stay / digital key
+  source: openapi/marriott-data-collection-api-openapi.json
+  root: true
+  keyed_on: confirmation-number (path)
+  relationships:
+  - {rel: has_one, target: Device, via: device}
+  - {rel: has_one, target: GuestStay, via: guestStay}
+  - {rel: has_one, target: Transaction, via: transaction}
+  - {rel: has_one, target: Lock, via: lock}
+  - {rel: has_one, target: Vendor, via: vendor}
+  - {rel: has_one, target: DeviceRegistration, via: deviceRegistration}
+  - {rel: has_one, target: SharedKey, via: sharedKey}
+  enums: [VendorTypeEnum, DownloadTypeEnum]
+- name: Device
+  domain: on-stay / digital key
+  relationships:
+  - {rel: has_one, target: DeviceDetail, via: details}
+  - {rel: has_one, target: Application, via: app}
+- name: DeviceDetail
+  domain: on-stay / digital key
+  enums: [DeviceOSEnum]
+- name: Application
+  domain: on-stay / digital key
+- name: Lock
+  domain: on-stay / digital key
+  relationships:
+  - {rel: has_one, target: Battery, via: battery}
+- name: Battery
+  domain: on-stay / digital key
+- name: Transaction
+  domain: on-stay / digital key
+- name: Vendor
+  domain: on-stay / digital key
+- name: GuestStay
+  domain: on-stay / digital key
+  relationships:
+  - {rel: has_one, target: Reservation, via: reservation}
+  - {rel: has_one, target: Customer, via: customer}
+  enums: [SourceEnum]
+- name: Reservation
+  domain: on-stay / digital key
+  fields: [confirmationNumber, propertyCode, arrivalDate, departureDate]
+  note: >-
+    The closest thing Marriott publishes to a reservation object anywhere. Four fields. No rate, no
+    room type, no guest name, no status, no loyalty linkage.
+- name: Customer
+  domain: on-stay / digital key
+  fields: [altCustomerId]
+- name: DeviceRegistration
+  domain: on-stay / digital key
+- name: SharedKey
+  domain: on-stay / digital key
+- name: MergeRequest
+  domain: loyalty
+  source: openapi/marriott-loyalty-account-merge-api-openapi.json
+  root: true
+  relationships:
+  - {rel: has_one, target: AccountMerge, via: accountMerge}
+- name: AccountMerge
+  domain: loyalty
+  relationships:
+  - {rel: has_one, target: SourceMergeAccount, via: sourceAccount}
+  - {rel: has_one, target: DestinationMergeAccount, via: destinationAccount}
+  fields: [mergeReason]
+- name: SourceMergeAccount
+  domain: loyalty
+  relationships:
+  - {rel: has_one, target: SourceMemberAccountUniqueIdentifier, via: memberAccountUniqueIdentifier}
+- name: DestinationMergeAccount
+  domain: loyalty
+  relationships:
+  - {rel: has_one, target: DestinationMemberAccountUniqueIdentifier, via: memberAccountUniqueIdentifier}
+- name: SourceMemberAccountUniqueIdentifier
+  domain: loyalty
+  fields: [memberAccountTypeCode, memberAccountUniqueIdValue]
+  relationships:
+  - {rel: has_one, target: AccountStatusType, via: accountStatusType}
+- name: DestinationMemberAccountUniqueIdentifier
+  domain: loyalty
+  fields: [memberAccountTypeCode, memberAccountUniqueIdValue]
+  note: >-
+    Structurally identical to the source identifier but declared as a separate schema, and without
+    accountStatusType. The duplication is in Marriott's document, not in this derivation.
+- name: AccountStatusType
+  domain: loyalty
+  fields: [accountStatusTypeCode, newAccountStatusTypeDescription]
+  codes_observed: ['23']
+- name: TokenResponse
+  domain: partner auth
+  source: openapi/marriott-tip-internet-portal-api-openapi.json
+- name: UserValidationRequest
+  domain: in-hotel internet (TIP)
+  note: Validates a guest by room number and last name against the cloud PMS.
+- name: GuestValidationResponse
+  domain: in-hotel internet (TIP)
+- name: UserPurchaseRequest
+  domain: in-hotel internet (TIP)
+- name: InternetPurchaseUpdate
+  domain: in-hotel internet (TIP)
+- name: PreconnectResponse
+  domain: in-hotel internet (TIP)
+  note: Carries the guest landing-page URL the internet provider redirects to.
+- name: PreviewSubmitRequest
+  domain: hotel operations (ARA automated room assignment)
+  source: openapi/marriott-hotel-operations-ara-api-openapi.json
+- name: Submit
+  domain: commerce / payments
+  source: openapi/marriott-commerce-payment-processor-api-openapi.json
+  note: >-
+    Wraps an XML FreedomPay Freeway payment message as a string inside a JSON envelope. The payment
+    model itself is FreedomPay's, not Marriott's, and is not published here.
+- name: SubmitResponse
+  domain: commerce / payments
+- name: Status
+  domain: finance
+  source: openapi/marriott-finance-status-notifier-api-openapi.json
+  enums: [ProcessingStatusEnum, SystemIdentifierEnum]
+- name: ConfigWatcherResponse
+  domain: finance
+- name: LoggersResponse
+  domain: finance
+  note: Spring Boot actuator logger surface, exposed as an API operation.
+- name: PerfTestData
+  domain: finance
+  relationships:
+  - {rel: has_many, target: PropertyCodeArray, via: propertyCodes}
+- name: PropertyCodeArray
+  domain: finance
+cross_document_reuse:
+  shared_schemas: 0
+  finding: >-
+    Not one components.schema is shared or $ref'd across the six documents. propertyCode is redefined
+    independently four times, error envelopes five times. There is no Marriott common model, no shared
+    components library and no schema registry published.
+coverage_gap: >-
+  The entities a developer would actually want from a hotel group — property, rate plan, room type,
+  availability, rate, booking, cancellation, loyalty balance, award redemption — do not exist in any
+  published Marriott artifact. The published model covers door locks, file-processing status,
+  account merges, internet purchases and room-assignment previews. It is an operations model, not a
+  distribution model.
+render: null

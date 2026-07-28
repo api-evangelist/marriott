@@ -1,0 +1,64 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  npm registry search, PyPI, GitHub organization probes, plus Marriott's own developer, partner and
+  travel-agent surfaces
+summary: >-
+  Marriott International publishes no client libraries. There is no first-party SDK in any language,
+  in any registry, and no public GitHub organization to host one. Every package that mentions
+  Marriott in a public registry is third-party — unofficial scrapers, an unofficial browser-automation
+  MCP server, and unrelated name collisions. No `SDKs` pointer is wired in apis.yml because there is
+  no official SDK to point at.
+official_sdk_count: 0
+packages: []
+registries_searched:
+- registry: npm
+  query: marriott
+  result: >-
+    25 results, zero first-party. Nearest hits are "marriott" (an unofficial hotel price fetcher by
+    StayExpert), "@striderlabs/mcp-marriott" (an unofficial browser-automation MCP server by Strider
+    Labs) and "@2ndaddress/sa-sass-marriott" (a Sass theme). None is published by Marriott.
+- registry: pypi
+  query: marriott
+  result: HTTP 404 — no package named marriott.
+- registry: rubygems
+  result: No first-party Marriott gem.
+- registry: packagist
+  result: No first-party Marriott package.
+- registry: maven-central
+  result: No com.marriott or com.marriottinternational group.
+- registry: nuget
+  result: No first-party Marriott package.
+- registry: pkg.go.dev
+  result: No Marriott module.
+- registry: crates.io
+  result: No Marriott crate.
+github:
+  organization: null
+  probed: [marriott, marriottinternational, MarriottInternational, marriott-international, marriott-api, marriotttech]
+  result: All return HTTP 404. Marriott operates no public GitHub organization.
+third_party_observed:
+- name: '@striderlabs/mcp-marriott'
+  registry: npm
+  version: 0.1.0
+  publisher: Strider Labs (hello@striderlabs.ai)
+  official: false
+  url: https://www.npmjs.com/package/@striderlabs/mcp-marriott
+  description: >-
+    MCP server that drives Marriott.com through Playwright browser automation to search hotels, book,
+    modify and cancel reservations, mobile check-in and redeem Bonvoy points.
+  note: >-
+    Not published or endorsed by Marriott, and it operates by automating the consumer website, which
+    Marriott's Terms of Use explicitly prohibit without written permission. Recorded as an observation
+    of unmet demand for a Marriott API, not as an integration route.
+- name: marriott
+  registry: npm
+  publisher: StayExpert
+  official: false
+  url: https://www.npmjs.com/package/marriott
+  description: Unofficial Marriott hotels price fetcher.
+finding: >-
+  The absence is the signal. A company of Marriott's size with an internal API gateway estate, an
+  enterprise SSO token service and a Layer7 developer portal ships zero public client libraries,
+  because it has zero public APIs for a client library to wrap. The only Marriott "SDKs" in the wild
+  are scrapers and browser drivers built by third parties against the consumer website.

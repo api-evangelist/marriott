@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Marriott Data Collection API
+  version: 1.0.0
+extends: openapi/marriott-data-collection-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: marriott
+    x-apievangelist-source: https://api.swaggerhub.com/apis/marriott-api/
+    x-apievangelist-harvested: '2026-07-28'
+    x-apievangelist-access: internal
+    x-apievangelist-access-note: Publicly readable OpenAPI left on SwaggerHub under the "marriott-api" owner. Not
+      part of any public Marriott developer program; access requires a Marriott partner relationship.
+    x-apievangelist-note: Stay-event and digital-key capture. Richest schema set in the estate (26 schemas) and
+      the only document with a namespaced error-code convention (OSD-DCS-nnnn).
+    x-apievangelist-error-envelope: osd-errors-array
+    x-apievangelist-artifacts:
+      authentication: authentication/marriott-authentication.yml
+      conventions: conventions/marriott-conventions.yml
+      errors: errors/marriott-problem-types.yml
+      lifecycle: lifecycle/marriott-lifecycle.yml
+      data-model: data-model/marriott-data-model.yml
+      conformance: conformance/marriott-conformance.yml
+      agentic-access: agentic-access/marriott-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - No securitySchemes declared — auth is implied by network placement behind the Marriott gateway.
+    - No 429 response, no rate-limit headers and no Retry-After declared on any operation.
+    - No idempotency key parameter declared on any write operation.
+- target: $.paths['/osd/v1/stays/{confirmation-number}/data-collection'].post
+  update:
+    x-apievangelist-agentic-access: agentic-access/marriott-agentic-access.yml
