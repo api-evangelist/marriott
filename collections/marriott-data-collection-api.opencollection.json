@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Data Collection API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Collection Event",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataCollectionEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://virtserver.swaggerhub.com/marriott-api/Data_Collection_API/1.0.0/osd/v1/stays/:confirmation-number/data-collection",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "confirmation-number",
+                "value": "",
+                "type": "path",
+                "description": "Reservation confirmation number"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Data Collection Event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

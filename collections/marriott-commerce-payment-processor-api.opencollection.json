@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "commerce-payment-processor",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FreedomPay Freeway Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "FreedomPay Freeway Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://virtserver.swaggerhub.com/marriott-api/commerce-payment-processor/1.0.0/freeway/service",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "FreedomPay Freeway Service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

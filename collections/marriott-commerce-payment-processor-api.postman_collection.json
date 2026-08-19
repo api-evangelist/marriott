@@ -1,0 +1,157 @@
+{
+  "item": [
+    {
+      "id": "5e8abcbc-6adf-4327-8680-a552f2be9f81",
+      "name": "FreedomPay Freeway Service",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6874dba2-7e23-46ba-9949-60ad9d73bf74",
+          "name": "FreedomPay Freeway Service",
+          "request": {
+            "name": "FreedomPay Freeway Service",
+            "description": {
+              "content": "FreedomPay Freeway Service",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "freeway",
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An unique identifier that is added to identify the context and is passed to all components that are involved in the transaction flow",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/xml"
+              },
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <reqeust>\n    <storeId>(string)</storeId>\n    <terminalId>(string)</terminalId>\n    <billTo>\n      <ipAddress>(string)</ipAddress>\n      <title>(string)</title>\n      <firstName>(string)</firstName>\n      <middleName>(string)</middleName>\n      <lastName>(string)</lastName>\n      <suffix>(string)</suffix>\n      <street1>(string)</street1>\n      <street2>(string)</street2>\n      <street3>(string)</street3>\n      <city>(string)</city>\n      <state>(string)</state>\n      <postalCode>(string)</postalCode>\n      <country>(string)</country>\n      <phoneNumber>(string)</phoneNumber>\n      <email>(string)</email>\n    </billTo>\n    <card>\n      <accountNumber>(string)</accountNumber>\n      <cardType>(string)</cardType>\n      <cvNumber>(string)</cvNumber>\n      <expirationMonth>(string)</expirationMonth>\n      <expirationYear>(string)</expirationYear>\n      <nameOnCard>(string)</nameOnCard>\n    </card>\n    <ccAuthService>\n      <transType>(string)</transType>\n      <enableAVS>(string)</enableAVS>\n    </ccAuthService>\n    <clientMetadata>\n      <applicationName>(string)</applicationName>\n      <applicationVersion>(string)</applicationVersion>\n    </clientMetadata>\n    <merchantReferenceCode>(string)</merchantReferenceCode>\n    <tokenCreateService>\n      <type>(string)</type>\n    </tokenCreateService>\n    <memberData>\n      <enrollmentDate>(string)</enrollmentDate>\n      <id>(string)</id>\n      <street1>(string)</street1>\n      <street2>(string)</street2>\n      <city>(string)</city>\n      <state>(string)</state>\n      <country>(string)</country>\n      <postalCode>(string)</postalCode>\n      <phoneNumber>(string)</phoneNumber>\n      <level>(string)</level>\n      <properties>\n        <property>\n          <name>(string)</name>\n          <value>(string)</value>\n        </property>\n      </properties>\n    </memberData>\n  </reqeust>\n</element>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5656dd48-8339-4860-9390-d1c809a787ac",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "freeway",
+                    "service"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An unique identifier that is added to identify the context and is passed to all components that are involved in the transaction flow",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <reqeust>\n    <storeId>1525237978</storeId>\n    <terminalId>2529106979</terminalId>\n    <billTo>\n      <ipAddress>60.187.144.226</ipAddress>\n      <title>Mr</title>\n      <firstName>John</firstName>\n      <middleName>M</middleName>\n      <lastName>Smith</lastName>\n      <suffix>Jr</suffix>\n      <street1>123 Main St.</street1>\n      <street2>10th cross</street2>\n      <street3>2nd road</street3>\n      <city>Gaithersburg</city>\n      <state>MD</state>\n      <postalCode>19087</postalCode>\n      <country>US</country>\n      <phoneNumber>123-456-7890</phoneNumber>\n      <email>john.smith@mail.com</email>\n    </billTo>\n    <card>\n      <accountNumber>3566007770019573</accountNumber>\n      <cardType>credit</cardType>\n      <cvNumber>476</cvNumber>\n      <expirationMonth>7</expirationMonth>\n      <expirationYear>2034</expirationYear>\n      <nameOnCard>JOHN SMITH</nameOnCard>\n    </card>\n    <ccAuthService>\n      <transType>verify</transType>\n      <enableAVS>Y</enableAVS>\n    </ccAuthService>\n    <clientMetadata>\n      <applicationName>MARRIOTT-MAGLEV-API</applicationName>\n      <applicationVersion>1</applicationVersion>\n    </clientMetadata>\n    <merchantReferenceCode>4841833d-e396-45ba-802d-b6bec7b5096c</merchantReferenceCode>\n    <tokenCreateService>\n      <type>99</type>\n    </tokenCreateService>\n    <memberData>\n      <enrollmentDate>2020-01-12</enrollmentDate>\n      <id>12345678</id>\n      <street1>123 Main St.</street1>\n      <street2>10th cross</street2>\n      <city>Gaithersburg</city>\n      <state>MD</state>\n      <country>US</country>\n      <postalCode>20877</postalCode>\n      <phoneNumber>123-456-7890</phoneNumber>\n      <level>GOLD</level>\n      <properties>\n        <property>\n          <name>memberLastLogin</name>\n          <value>2020-01-13</value>\n        </property>\n      </properties>\n    </memberData>\n  </reqeust>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <SubmitResult>\n    <reasonCode>100</reasonCode>\n    <decision>ACCEPT</decision>\n    <networkData>\n      <network>FREEWAY</network>\n    </networkData>\n    <requestID>01Z6N9DE6497U6K834IU8DUINROALBQ0</requestID>\n    <ccAuthReply>\n      <enhancedDataEnabled>N</enhancedDataEnabled>\n      <processorTransactionID>368341595</processorTransactionID>\n      <processorResponseMessage>APPROVED</processorResponseMessage>\n      <reconciliationID>368341595</reconciliationID>\n      <partialAmount>N</partialAmount>\n      <amount>0</amount>\n      <processorResponseCode>100</processorResponseCode>\n      <authRequestID>01Z6N9DE6497U6K834IU8DUINROALBQ0</authRequestID>\n      <requestDateTime>2025-10-08T15:20:36.2701408Z</requestDateTime>\n      <authorizationCode>341595</authorizationCode>\n      <reasonCode>100</reasonCode>\n      <authorizedDateTime>2025-10-08T15:20:36.3177311Z</authorizedDateTime>\n    </ccAuthReply>\n    <merchantReferenceCode>4841833d-e396-45ba-802d-b6bec7b5096c</merchantReferenceCode>\n    <tokenInformation>\n      <tokenExpiration>2027-01-12T00:00:00.0000000Z</tokenExpiration>\n      <brand>JC</brand>\n      <token>9183673344669572</token>\n      <cardExpirationYear>2034</cardExpirationYear>\n      <cardExpirationMonth>7</cardExpirationMonth>\n      <accountNumberMasked>356600xxxxxx9573</accountNumberMasked>\n    </tokenInformation>\n    <tokenCreateReply>\n      <requestDateTime>2025-10-08T15:20:36.3177311Z</requestDateTime>\n      <reasonCode>100</reasonCode>\n    </tokenCreateReply>\n  </SubmitResult>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://virtserver.swaggerhub.com/marriott-api/commerce-payment-processor/1.0.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "04c22c7b-a394-4ad1-bce5-10cb41a8075d",
+    "name": "commerce-payment-processor",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API for the Commerce Payment project to process the payment with different payment processor\n\nContact Support:\n Name: Marriott API Team\n Email: apidevteam@marriott.com",
+      "type": "text/plain"
+    }
+  }
+}

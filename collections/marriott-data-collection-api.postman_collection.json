@@ -1,0 +1,460 @@
+{
+  "item": [
+    {
+      "id": "12fb72fd-1bf9-45ab-98df-4e0d4b5d8584",
+      "name": "Data Collection Event",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "002ec3e0-80b2-4a58-b1dd-97fcc91f68f2",
+          "name": "Data Collection Event",
+          "request": {
+            "name": "Data Collection Event",
+            "description": {
+              "content": "Data Collection Event",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "osd",
+                "v1",
+                "stays",
+                ":confirmation-number",
+                "data-collection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "confirmation-number",
+                  "description": "(Required) Reservation confirmation number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Correlation ID for debugging and tracking",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"<string>\",\n      \"propertyCode\": \"<string>\",\n      \"departureDate\": \"<date>\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"<string>\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"<string>\",\n    \"details\": {\n      \"deviceType\": \"<string>\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"<string>\"\n    },\n    \"app\": {\n      \"appName\": \"<string>\",\n      \"appVersion\": \"<string>\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"<string>\",\n    \"dateTime\": \"<dateTime>\",\n    \"duration\": \"<integer>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"frameworkStatus\": \"<string>\",\n    \"reason\": \"<string>\"\n  },\n  \"lock\": {\n    \"lockId\": \"<string>\",\n    \"lockType\": \"<string>\",\n    \"firmwareVersion\": \"<string>\",\n    \"additionalInformation\": \"<string>\",\n    \"battery\": {\n      \"voltage\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    \"system\": \"<string>\",\n    \"lcuFirmwareVersion\": \"<string>\",\n    \"rfu\": \"<string>\",\n    \"statusFlags\": \"<string>\",\n    \"accessAttemptInformation\": \"<string>\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"<string>\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"<string>\",\n    \"registrationType\": \"<string>\"\n  },\n  \"sharedKey\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c41aa632-e990-4ced-84bf-000af00c3de7",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af9651f7-1970-4165-b2cf-b2d214b45f55",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"OSD-DCS-3900\",\n      \"message\": \"Confirmation Number Missing\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    },\n    {\n      \"code\": \"OSD-DCS-3900\",\n      \"message\": \"Confirmation Number Missing\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "047d8f4a-65d2-4d94-8a1b-79c8be691924",
+              "name": "Request Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"OSD-DCS-3950\",\n      \"message\": \"Data Not Found\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    },\n    {\n      \"code\": \"OSD-DCS-3950\",\n      \"message\": \"Data Not Found\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b1889c2-e488-42d8-9db7-24d720fcd667",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"OSD-DCS-3951\",\n      \"message\": \"Error processing request\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    },\n    {\n      \"code\": \"OSD-DCS-3951\",\n      \"message\": \"Error processing request\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c11f8f84-e360-44ba-9858-862028a6ef74",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"OSD-DCS-3952\",\n      \"message\": \"Internal Server Error\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    },\n    {\n      \"code\": \"OSD-DCS-3952\",\n      \"message\": \"Internal Server Error\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76d5d1f6-94ec-4547-9cc5-01cb8e8f6b93",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "osd",
+                    "v1",
+                    "stays",
+                    ":confirmation-number",
+                    "data-collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "confirmation-number",
+                      "description": "(Required) Reservation confirmation number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation ID for debugging and tracking",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guestStay\": {\n    \"reservation\": {\n      \"arrivalDate\": \"<date>\",\n      \"confirmationNumber\": \"89765432\",\n      \"propertyCode\": \"NYCOX\",\n      \"departureDate\": \"2023-08-02\"\n    },\n    \"customer\": {\n      \"altCustomerId\": \"65FC2F415C94DE188996E49A0C4CC6CF6.U1\"\n    },\n    \"source\": \"<string>\"\n  },\n  \"lockVendor\": \"<string>\",\n  \"transactionType\": \"DIGITAL_KEY_USED\",\n  \"issuedDt\": {},\n  \"expirationDt\": {},\n  \"downloadType\": \"<string>\",\n  \"device\": {\n    \"guestDeviceId\": \"26885a84-095a-41a3-bd83-4165b3730e48\",\n    \"details\": {\n      \"deviceType\": \"iPhone\",\n      \"deviceOs\": \"<string>\",\n      \"deviceOsVersion\": \"16.4\"\n    },\n    \"app\": {\n      \"appName\": \"Marriott-RL\",\n      \"appVersion\": \"10.58.0\"\n    }\n  },\n  \"transaction\": {\n    \"status\": \"ScanTimeout\",\n    \"dateTime\": \"2023-10-25T13:13:48Z\",\n    \"duration\": 100,\n    \"code\": \"Code: 300 Vendor Code: null\",\n    \"message\": \"The unlocking request has timed out Vendor: null Framework: null\",\n    \"frameworkStatus\": \"SUCCESS\",\n    \"reason\": \"Key has expired\"\n  },\n  \"lock\": {\n    \"lockId\": \"6A2AC004-8482-3571-B0A9-56DA4D3D8858\",\n    \"lockType\": \"lockType\",\n    \"firmwareVersion\": \"11.16\",\n    \"additionalInformation\": \"102\",\n    \"battery\": {\n      \"voltage\": \"4364 mV Battery\",\n      \"status\": \"Good\"\n    },\n    \"system\": \"Saflok\",\n    \"lcuFirmwareVersion\": \"3.17.41.6\",\n    \"rfu\": \"rfu\",\n    \"statusFlags\": \"statusFlags\",\n    \"accessAttemptInformation\": \"accessAttemptInformation\"\n  },\n  \"vendor\": {\n    \"sdkVersion\": \"7.4.1.115\"\n  },\n  \"deviceRegistration\": {\n    \"regToken\": \"89765432\",\n    \"registrationType\": \"MCI\"\n  },\n  \"sharedKey\": {\n    \"token\": \"f477bf19-1321-48b5-97bc-3080b42d74ef\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"OSD-DCS-3953\",\n      \"message\": \"Service Unavailable\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    },\n    {\n      \"code\": \"OSD-DCS-3953\",\n      \"message\": \"Service Unavailable\",\n      \"timestamp\": \"2023-06-16T15:49:00.000Z\",\n      \"source\": \"hotelops-osd-data-collection\",\n      \"path\": \"/osd/v1/stays/{confirmation-number}/data-collection\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://virtserver.swaggerhub.com/marriott-api/Data_Collection_API/1.0.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "66674861-5738-40ba-b80b-719af431745f",
+    "name": "Data Collection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an API to capture and publish additional data for events to be consumed by PACD",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1505 @@
+{
+  "item": [
+    {
+      "id": "59f99dc1-9664-4a4d-b629-8fa30db1345d",
+      "name": "auth",
+      "description": {
+        "content": "Authorization related endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2a407ad8-9df0-48dc-9d8d-592131af3e5c",
+          "name": "Generate access token for TIP Internet Portal APIs.",
+          "request": {
+            "name": "Generate access token for TIP Internet Portal APIs.",
+            "description": {
+              "content": "Generates an access token that must be used as a Bearer token in the `Authorization`\nheader for all subsequent TIP Internet Portal API calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ent-auth",
+                "sso",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9e9cab65-4867-4e0f-8f81-6ee34d0de618",
+              "name": "Token successfully generated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ent-auth",
+                    "sso",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "openid"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 3600,\n  \"scope\": \"openid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63f9ef43-c466-4841-a2f2-3ee1569e7c4e",
+              "name": "Invalid request to token endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ent-auth",
+                    "sso",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "openid"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "686d11a7-fc7b-4c45-8ff0-105ed6bf4bc8",
+              "name": "Unauthorized. Invalid client credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ent-auth",
+                    "sso",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "openid"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"faultcode\": \"Server\",\n  \"faultstring\": \"1012100 - Credentials invalid or missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "812aa87c-c698-4702-925b-77f0b919df6e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ent-auth",
+                    "sso",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "openid"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f326faf5-65e9-4fec-8152-eba7d84aabac",
+      "name": "landing-page",
+      "description": {
+        "content": "Provides the landing page URL based on request inputs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2f8414ea-5488-4d4a-a944-e1d1bd72fbe5",
+          "name": "Returns landing page URL for the user channel.",
+          "request": {
+            "name": "Returns landing page URL for the user channel.",
+            "description": {
+              "content": "Get landing page URL for the user channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partners",
+                "v1",
+                "internet-portal",
+                "landing-page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "propertyCode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "zone",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "L_URL",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "LR",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Correlation identifier for tracing across services.",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "locale",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29ad13a6-0339-4687-9470-ab3a3ee464d9",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "landing-page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "propertyCode",
+                      "value": "nycmq"
+                    },
+                    {
+                      "key": "zone",
+                      "value": "GUEST"
+                    },
+                    {
+                      "key": "L_URL",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LR",
+                      "value": "STRICT_N"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "locale",
+                    "value": "fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"landingPageURL\": \"https://www.marriott.com/fr/phoenix/nycmq/landingPage?AT=CONNECT&Z=guest&LR=STRICT_N&L_URL=http://httpbin.org/post\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "400720d5-886d-4738-b718-329ae812ccd4",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "landing-page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "propertyCode",
+                      "value": "nycmq"
+                    },
+                    {
+                      "key": "zone",
+                      "value": "GUEST"
+                    },
+                    {
+                      "key": "L_URL",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LR",
+                      "value": "STRICT_N"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "locale",
+                    "value": "fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"landingPageURI\": \"https://www.marriott.com/hotel-search.mi?invalidProperty=true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccdf7462-8c01-4ca9-996f-c14296345aea",
+              "name": "Authorization Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "landing-page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "propertyCode",
+                      "value": "nycmq"
+                    },
+                    {
+                      "key": "zone",
+                      "value": "GUEST"
+                    },
+                    {
+                      "key": "L_URL",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LR",
+                      "value": "STRICT_N"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "locale",
+                    "value": "fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"faultcode\": \"Server\",\n  \"faultstring\": \"1012100 - Credentials invalid or missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68afb4f1-b623-4778-a17f-736ccd444c1f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "landing-page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "propertyCode",
+                      "value": "nycmq"
+                    },
+                    {
+                      "key": "zone",
+                      "value": "GUEST"
+                    },
+                    {
+                      "key": "L_URL",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LR",
+                      "value": "STRICT_N"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "locale",
+                    "value": "fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"landingPageURI\": \"https://www.marriott.com/hotel-search.mi?invalidProperty=true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ceab52ea-e2ed-4b31-a1fe-b40a8a568126",
+      "name": "guest-validation",
+      "description": {
+        "content": "Validates a given RN/LN against a property in cloud PMS.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76b93592-711d-49fd-898f-dbbdb00c546f",
+          "name": "Validates guest details in cloud PMS and returns member status.",
+          "request": {
+            "name": "Validates guest details in cloud PMS and returns member status.",
+            "description": {
+              "content": "Validates provided guest details in cloud PMS and returns member status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partners",
+                "v1",
+                "internet-portal",
+                "guest-validation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Correlation identifier for tracing across services.",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69024734-8efb-49b4-9b10-310829cdb2aa",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "guest-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"phxdr\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"sp\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"memberShipLevel\": \"ELITE\",\n  \"duration\": 3,\n  \"connectionStatus\": true,\n  \"purchased\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f0245d3-ef49-4a85-82bd-bfbee17dd481",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "guest-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"phxdr\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"sp\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4cbf2fd-3370-46a4-b17b-071ab9588591",
+              "name": "Authorization Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "guest-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"phxdr\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"sp\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"faultcode\": \"Server\",\n  \"faultstring\": \"1012100 - Credentials invalid or missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bc243bb-53f5-48bd-9e34-b8751db7a036",
+              "name": "Guest details not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "guest-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"phxdr\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"sp\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9beab01e-da51-46da-bc9c-bf97e89d13c1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "guest-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"phxdr\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"tiers\": \"sp\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "429fca03-5caf-4e27-89f3-7cc68d230e6e",
+      "name": "internet-purchase-update",
+      "description": {
+        "content": "Updates the user internet plan purchase in cloud PMS.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1425829-7646-4a7e-8107-78b9b85ebdcd",
+          "name": "Updates PMS with guest internet purchase details.",
+          "request": {
+            "name": "Updates PMS with guest internet purchase details.",
+            "description": {
+              "content": "Updates PMS with guest internet purchase details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partners",
+                "v1",
+                "internet-portal",
+                "purchase-update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Correlation identifier for tracing across services.",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"currency\": \"<string>\",\n  \"price\": \"<double>\",\n  \"sp\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79ed1be1-6316-41c2-b27c-5ca8c4df81d4",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "purchase-update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"nycmq\",\n  \"lastName\": \"sam\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": 1,\n  \"currency\": \"CHF\",\n  \"price\": 41.42,\n  \"sp\": \"plan1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"duration\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4eecf88e-93cf-4a01-ad0f-ce81e54a5ce5",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "purchase-update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"nycmq\",\n  \"lastName\": \"sam\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": 1,\n  \"currency\": \"CHF\",\n  \"price\": 41.42,\n  \"sp\": \"plan1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d25ed93d-fc43-48f8-a52a-d9bc32089413",
+              "name": "Authorization Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "purchase-update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"nycmq\",\n  \"lastName\": \"sam\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": 1,\n  \"currency\": \"CHF\",\n  \"price\": 41.42,\n  \"sp\": \"plan1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"faultcode\": \"Server\",\n  \"faultstring\": \"1012100 - Credentials invalid or missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c56eb5c0-e54e-4923-855d-3f1508ec4afb",
+              "name": "Guest details not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "purchase-update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"nycmq\",\n  \"lastName\": \"sam\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": 1,\n  \"currency\": \"CHF\",\n  \"price\": 41.42,\n  \"sp\": \"plan1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48d00ecf-c862-483f-b2c0-885580ec3f1d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    "v1",
+                    "internet-portal",
+                    "purchase-update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Correlation identifier for tracing across services.",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"nycmq\",\n  \"lastName\": \"sam\",\n  \"roomNumber\": \"<string>\",\n  \"duration\": 1,\n  \"currency\": \"CHF\",\n  \"price\": 41.42,\n  \"sp\": \"plan1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failed\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gatewaydsapuat3.marriott.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c147b274-d06d-4356-8fc7-2ea8f3e835bb",
+    "name": "TIP Internet Portal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API can be used to generate landing page URL, validate user RN/LN in cloud PMS\nand update internet purchase in PMS.\n\nAll TIP Internet Portal API calls require a Bearer token obtained from the token generation\nendpoint defined in this specification. Clients must:\n\nIn the **Authorize** section, configure both **Basic** and **Bearer** authorization as follows:\n\n  1. First, enter your **Basic auth** credentials and call the token generation endpoint to obtain an access token.  \n  2. Then, copy the **Bearer token** from the token endpoint response and set it in the **Bearer auth** configuration.  \n  3. Use this Bearer token for all subsequent API requests.\n  4. The token remains valid for the duration, in seconds, specified by the expires_in field in the response\n  ",
+      "type": "text/plain"
+    }
+  }
+}

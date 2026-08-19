@@ -1,0 +1,271 @@
+{
+  "item": [
+    {
+      "id": "4cc1d1a6-241d-4510-b8c6-2158408c19a7",
+      "name": "Merge or transfer member profiles",
+      "request": {
+        "name": "Merge or transfer member profiles",
+        "description": {},
+        "url": {
+          "path": [
+            "loyalty",
+            "v1",
+            "account-merge"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "disabled": false,
+            "description": "(Required) Client identifier",
+            "key": "client_id",
+            "value": "<string>"
+          },
+          {
+            "disabled": false,
+            "description": "(Required) Operator identifier",
+            "key": "operator_id",
+            "value": "<string>"
+          },
+          {
+            "disabled": false,
+            "description": "Correlation identifier for request tracing",
+            "key": "correlation-id",
+            "value": "<string>"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountMerge\": {\n    \"destinationAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"<string>\",\n        \"memberAccountUniqueIdValue\": \"<string>\"\n      }\n    },\n    \"sourceAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"<string>\",\n        \"memberAccountUniqueIdValue\": \"<string>\",\n        \"accountStatusType\": {\n          \"accountStatusTypeCode\": \"<string>\",\n          \"newAccountStatusTypeDescription\": \"<string>\"\n        }\n      }\n    },\n    \"mergeReason\": \"<string>\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "91f26cb0-96be-4c67-b6ba-dd46247d1312",
+          "name": "Profile merged successfully",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "loyalty",
+                "v1",
+                "account-merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Client identifier",
+                "key": "client_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Operator identifier",
+                "key": "operator_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation identifier for request tracing",
+                "key": "correlation-id",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountMerge\": {\n    \"sourceAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"779853771\",\n        \"accountStatusType\": {\n          \"accountStatusTypeCode\": \"23\",\n          \"newAccountStatusTypeDescription\": \"Merge\"\n        }\n      }\n    },\n    \"destinationAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"225098331\"\n      }\n    },\n    \"mergeReason\": \"User Comment\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "53f4e1d0-211f-410a-bd24-ffc7afc47add",
+          "name": "Invalid request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "loyalty",
+                "v1",
+                "account-merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Client identifier",
+                "key": "client_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Operator identifier",
+                "key": "operator_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation identifier for request tracing",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountMerge\": {\n    \"sourceAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"779853771\",\n        \"accountStatusType\": {\n          \"accountStatusTypeCode\": \"23\",\n          \"newAccountStatusTypeDescription\": \"Merge\"\n        }\n      }\n    },\n    \"destinationAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"225098331\"\n      }\n    },\n    \"mergeReason\": \"User Comment\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": [\n    {\n      \"code\": \"400\",\n      \"message\": \"Bad Request\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "213f2fa5-2fd6-45b8-9682-e4c9c3a2eb75",
+          "name": "Server error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "loyalty",
+                "v1",
+                "account-merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Client identifier",
+                "key": "client_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Operator identifier",
+                "key": "operator_id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation identifier for request tracing",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountMerge\": {\n    \"sourceAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"779853771\",\n        \"accountStatusType\": {\n          \"accountStatusTypeCode\": \"23\",\n          \"newAccountStatusTypeDescription\": \"Merge\"\n        }\n      }\n    },\n    \"destinationAccount\": {\n      \"memberAccountUniqueIdentifier\": {\n        \"memberAccountTypeCode\": \"CSID\",\n        \"memberAccountUniqueIdValue\": \"225098331\"\n      }\n    },\n    \"mergeReason\": \"User Comment\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": [\n    {\n      \"code\": \"500\",\n      \"message\": \"Internal Error\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://virtserver.swaggerhub.com/marriott-api/lylt-v1-merge-profile/1.0.1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e8eedd6b-c26e-4e82-a9a9-ebc3ec9ad4a1",
+    "name": "Merge/Transfer Request API - new TIP MMF Spec for sending Account Merge request to SF CLM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

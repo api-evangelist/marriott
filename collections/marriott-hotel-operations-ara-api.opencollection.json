@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hotel Operations ARA - Preview Submit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PostPreviewSubmit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ARA Preview Submit invocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/hotelops/ara/preview-submit",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              },
+              {
+                "name": "client-id",
+                "value": "ARA"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a preview request for ARA room assignment processing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

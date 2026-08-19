@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TIP Internet Portal",
+    "version": "1.0.2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate access token for TIP Internet Portal APIs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gatewaydsapuat3.marriott.com/v3/ent-auth/sso/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Generates an access token that must be used as a Bearer token in the `Authorization`\nheader for all subsequent TIP Internet Portal API calls."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "landing-page",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns landing page URL for the user channel.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gatewaydsapuat3.marriott.com/partners/v1/internet-portal/landing-page",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              },
+              {
+                "name": "locale",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "zone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "L_URL",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LR",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get landing page URL for the user channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "guest-validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validates guest details in cloud PMS and returns member status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gatewaydsapuat3.marriott.com/partners/v1/internet-portal/guest-validation",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates provided guest details in cloud PMS and returns member status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "internet-purchase-update",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Updates PMS with guest internet purchase details.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gatewaydsapuat3.marriott.com/partners/v1/internet-portal/purchase-update",
+            "headers": [
+              {
+                "name": "correlation-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates PMS with guest internet purchase details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

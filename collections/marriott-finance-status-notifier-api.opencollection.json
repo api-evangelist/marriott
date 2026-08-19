@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Finance Status Notifier Application",
+    "version": "1.0.2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "http://example.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operation to push the file processing status from the Finance system",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2/status",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "This is the operation to push the file processing status from the Finance system to have all the relevant status related information colocated in document db"
+    },
+    {
+      "info": {
+        "name": "Retrieves configuration details monitored by the Spring config watcher",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2/retrieveConfigsMonitoredByConfigWatcher"
+      },
+      "docs": "Retrieves configuration details monitored by the Spring config watcher"
+    },
+    {
+      "info": {
+        "name": "Change ROOT logger level",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2/actuator/loggers/ROOT",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "This operation changes the ROOT log level of the app"
+    },
+    {
+      "info": {
+        "name": "Operation to create/load the performance test data to the respective docdb collection based on the count provided for each adapter",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2/data",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "This is to create/load adapter processing status data to perform performance testing based on input count for each adapter provided it is enabled for the environment. It will return the array of property codes for which the data has been created. Property codes should be in the format of GLXXX and BTXXX where XXX is any combination of alphabets only."
+    },
+    {
+      "info": {
+        "name": "Operation to delete performance test data based on the adapter list provided in the request body",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2/data",
+        "params": [
+          {
+            "name": "adapters",
+            "value": "BTR,GL",
+            "type": "query",
+            "description": "List of adapters for which the performance test data should be deleted"
+          }
+        ]
+      },
+      "docs": "This operation deletes the documents from the document database for the specified adapters."
+    }
+  ],
+  "bundled": true
+}

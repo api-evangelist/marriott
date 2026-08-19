@@ -1,0 +1,327 @@
+{
+  "item": [
+    {
+      "id": "f99b32f8-9655-4c96-bdd3-8a48e2301bf2",
+      "name": "PostPreviewSubmit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64219b7b-2cb8-44cc-9221-a7823370a3de",
+          "name": "ARA Preview Submit invocation",
+          "request": {
+            "name": "ARA Preview Submit invocation",
+            "description": {
+              "content": "Submits a preview request for ARA room assignment processing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hotelops",
+                "ara",
+                "preview-submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) An UUID used to correlate or connect multiple requests across a single event in a functional flow. This is useful for cross-system telemetry.\n",
+                "key": "correlation-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Client ID - ARA etc.",
+                "key": "client-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"<string>\",\n  \"araRunId\": \"<string>\",\n  \"action\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7b65d73-723a-43bc-a7d4-0e00e8a1b069",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hotelops",
+                    "ara",
+                    "preview-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An UUID used to correlate or connect multiple requests across a single event in a functional flow. This is useful for cross-system telemetry.\n",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Client ID - ARA etc.",
+                    "key": "client-id",
+                    "value": "ARA"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"ABCDE\",\n  \"araRunId\": \"run-12345\",\n  \"action\": \"SUBMIT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Preview submit request processed successfully\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "023df870-79e9-4e83-8be1-c172bd823839",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hotelops",
+                    "ara",
+                    "preview-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An UUID used to correlate or connect multiple requests across a single event in a functional flow. This is useful for cross-system telemetry.\n",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Client ID - ARA etc.",
+                    "key": "client-id",
+                    "value": "ARA"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"ABCDE\",\n  \"araRunId\": \"run-12345\",\n  \"action\": \"SUBMIT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"errorCode\": \"BAD_REQUEST\",\n      \"errorMsg\": \"Invalid request body\",\n      \"source\": \"hotelops-hint-room-assignment-pms-adapter\",\n      \"fields\": [\n        {\n          \"key\": \"propertyCode\",\n          \"value\": \"\"\n        }\n      ],\n      \"timestamp\": \"2023-08-25T06:58:53.258+00:00\",\n      \"path\": \"/v1/hotelops/ara/preview-submit\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98ccf97b-3286-4524-bee8-a13943508ccf",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hotelops",
+                    "ara",
+                    "preview-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An UUID used to correlate or connect multiple requests across a single event in a functional flow. This is useful for cross-system telemetry.\n",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Client ID - ARA etc.",
+                    "key": "client-id",
+                    "value": "ARA"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"ABCDE\",\n  \"araRunId\": \"run-12345\",\n  \"action\": \"SUBMIT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"errorCode\": \"UNPROCESSABLE_ENTITY\",\n      \"errorMsg\": \"Property not enabled for ARA\",\n      \"source\": \"hotelops-hint-room-assignment-pms-adapter\",\n      \"fields\": [\n        {\n          \"key\": \"propertyCode\",\n          \"value\": \"ABCDE\"\n        }\n      ],\n      \"timestamp\": \"2023-08-25T06:58:53.258+00:00\",\n      \"path\": \"/v1/hotelops/ara/preview-submit\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eec9a75-52cf-4bdf-a1bb-2788c2b2ee92",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hotelops",
+                    "ara",
+                    "preview-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An UUID used to correlate or connect multiple requests across a single event in a functional flow. This is useful for cross-system telemetry.\n",
+                    "key": "correlation-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Client ID - ARA etc.",
+                    "key": "client-id",
+                    "value": "ARA"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyCode\": \"ABCDE\",\n  \"araRunId\": \"run-12345\",\n  \"action\": \"SUBMIT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"errorCode\": \"INTERNAL_SERVER_ERROR\",\n      \"errorMsg\": \"Please try again later\",\n      \"source\": \"hotelops-hint-room-assignment-pms-adapter\",\n      \"timestamp\": \"2023-08-25T06:58:53.258+00:00\",\n      \"path\": \"/v1/hotelops/ara/preview-submit\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "31c52b90-2fdf-40ae-8ab9-85411d13a7e1",
+    "name": "Hotel Operations ARA - Preview Submit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API is used to submit a preview request for ARA room assignment.",
+      "type": "text/plain"
+    }
+  }
+}

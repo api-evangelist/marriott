@@ -1,0 +1,910 @@
+{
+  "item": [
+    {
+      "id": "e9e37f47-f496-4e69-9961-dd489be8feed",
+      "name": "Operation to push the file processing status from the Finance system",
+      "request": {
+        "name": "Operation to push the file processing status from the Finance system",
+        "description": {
+          "content": "This is the operation to push the file processing status from the Finance system to have all the relevant status related information colocated in document db",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "status"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"propertyCode\": \"<string>\",\n  \"businessDate\": \"<date>\",\n  \"processingStatus\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"systemId\": \"<string>\",\n  \"databaseId\": \"<string>\",\n  \"processInstance\": \"<string>\",\n  \"processName\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"operatingUnit\": \"<string>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "941c1f52-f2f7-4304-b84e-871cc02312b5",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"LHRHR\",\n  \"businessDate\": \"<date>\",\n  \"processingStatus\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"systemId\": \"<string>\",\n  \"databaseId\": \"<string>\",\n  \"processInstance\": \"<string>\",\n  \"processName\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"operatingUnit\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "f8939a77-edf2-4fd2-9227-7a367b8302ab",
+          "name": "Invalid Input Data",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"LHRHR\",\n  \"businessDate\": \"<date>\",\n  \"processingStatus\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"systemId\": \"<string>\",\n  \"databaseId\": \"<string>\",\n  \"processInstance\": \"<string>\",\n  \"processName\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"operatingUnit\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "2122c0fd-98e8-4750-af21-fc7329ea60fa",
+          "name": "Unauthorized",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"LHRHR\",\n  \"businessDate\": \"<date>\",\n  \"processingStatus\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"systemId\": \"<string>\",\n  \"databaseId\": \"<string>\",\n  \"processInstance\": \"<string>\",\n  \"processName\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"operatingUnit\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "2a287ccf-443e-44a2-aa3a-63d0563f1157",
+          "name": "Adapter entry for desired file could not found",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyCode\": \"LHRHR\",\n  \"businessDate\": \"<date>\",\n  \"processingStatus\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"systemId\": \"<string>\",\n  \"databaseId\": \"<string>\",\n  \"processInstance\": \"<string>\",\n  \"processName\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"operatingUnit\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "029f7956-dc14-42b3-99f7-e43f863989df",
+      "name": "Retrieves configuration details monitored by the Spring config watcher",
+      "request": {
+        "name": "Retrieves configuration details monitored by the Spring config watcher",
+        "description": {
+          "content": "Retrieves configuration details monitored by the Spring config watcher",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "retrieveConfigsMonitoredByConfigWatcher"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "663b57b0-5702-4bf8-aea8-0df07f6981b8",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "retrieveConfigsMonitoredByConfigWatcher"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"configWatcherVariable\": 744\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "dfd6fade-1299-4794-a3fd-31efc5efae86",
+          "name": "No Content",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "retrieveConfigsMonitoredByConfigWatcher"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "4964595b-08a0-44ee-9c33-d67d466e48bc",
+      "name": "Change ROOT logger level",
+      "request": {
+        "name": "Change ROOT logger level",
+        "description": {
+          "content": "This operation changes the ROOT log level of the app",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "actuator",
+            "loggers",
+            "ROOT"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"configuredLevel\": \"<string>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "999c78d9-1e1b-4e4d-b5d7-360b50bb4b98",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "actuator",
+                "loggers",
+                "ROOT"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuredLevel\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "897a599a-609d-4944-88ad-ac3bb04f54ed",
+          "name": "Invalid Input Data",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "actuator",
+                "loggers",
+                "ROOT"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuredLevel\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "feb04e39-3a5b-46af-9925-832649e59ba9",
+      "name": "Operation to create/load the performance test data to the respective docdb collection based on the count provided for each adapter",
+      "request": {
+        "name": "Operation to create/load the performance test data to the respective docdb collection based on the count provided for each adapter",
+        "description": {
+          "content": "This is to create/load adapter processing status data to perform performance testing based on input count for each adapter provided it is enabled for the environment. It will return the array of property codes for which the data has been created. Property codes should be in the format of GLXXX and BTXXX where XXX is any combination of alphabets only.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "data"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"glCount\": \"<integer>\",\n  \"btrCount\": \"<integer>\",\n  \"businessDate\": \"<MMDDYYYY>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "9ed69364-02d1-4b3a-9a58-783886c44f5f",
+          "name": "Returns an array of property codes for which data is created",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"glCount\": 6,\n  \"btrCount\": 5,\n  \"businessDate\": \"06112025\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "[\n  \"GLABC\",\n  \"BTRXYZ\"\n]",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "0bd39281-346c-455f-a733-33f0d8f4a182",
+          "name": "Error Ocurred while loading the data in the DB",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"glCount\": 6,\n  \"btrCount\": 5,\n  \"businessDate\": \"06112025\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "b33b06c4-311a-4505-b8dd-a3ad07123c5a",
+          "name": "The data endpoint is not available for this environment",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"glCount\": 6,\n  \"btrCount\": 5,\n  \"businessDate\": \"06112025\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "ae26cc0a-d155-4e8e-81af-7c38c7d38944",
+      "name": "Operation to delete performance test data based on the adapter list provided in the request body",
+      "request": {
+        "name": "Operation to delete performance test data based on the adapter list provided in the request body",
+        "description": {
+          "content": "This operation deletes the documents from the document database for the specified adapters.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "data"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "adapters",
+              "value": "<string>",
+              "description": "List of adapters for which the performance test data should be deleted"
+            },
+            {
+              "disabled": false,
+              "key": "adapters",
+              "value": "<string>",
+              "description": "List of adapters for which the performance test data should be deleted"
+            }
+          ],
+          "variable": []
+        },
+        "method": "DELETE",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "4c9ac049-5ccf-487d-9387-949f085c333d",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "964e61d9-409c-4430-b1b2-f98cbb000290",
+          "name": "Error in deleting data",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "8477950e-64fa-431c-8d33-700c74ad4be8",
+          "name": "The data endpoint is not available for this environment",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "adapters",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "http://example.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "77de6d56-5366-4ac1-b0d3-a3d6848c4b2f",
+    "name": "Finance Status Notifier Application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This app will be consumed by Finance system to push the processing status of the files generated by the finance adapters.",
+      "type": "text/plain"
+    }
+  }
+}

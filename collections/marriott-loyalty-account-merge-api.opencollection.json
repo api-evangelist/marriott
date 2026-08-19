@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Merge/Transfer Request API - new TIP MMF Spec for sending Account Merge request to SF CLM",
+    "version": "1.0.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merge or transfer member profiles",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://virtserver.swaggerhub.com/marriott-api/lylt-v1-merge-profile/1.0.1/loyalty/v1/account-merge",
+        "headers": [
+          {
+            "name": "client_id",
+            "value": ""
+          },
+          {
+            "name": "operator_id",
+            "value": ""
+          },
+          {
+            "name": "correlation-id",
+            "value": ""
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Merge or transfer member profiles"
+    }
+  ],
+  "bundled": true
+}
