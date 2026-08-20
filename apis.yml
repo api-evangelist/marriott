@@ -29,6 +29,16 @@ tags:
 - Booking
 - Distribution
 - Loyalty
+- Short-Term Rental
+- Corporate Travel
+tags_raw:
+- Travel
+- United States
+- Hospitality
+- Hotels
+- Booking
+- Distribution
+- Loyalty
 - Short Term Rental
 - Corporate Travel
 created: '2026-07-28'
@@ -88,6 +98,10 @@ apis:
   baseURL: https://gatewaydsapdev1.marriott.com
   tags:
   - Stays
+  - Event
+  - Digital Key
+  tags_raw:
+  - Stays
   - Events
   - Digital Key
   properties:
@@ -127,6 +141,8 @@ apis:
   humanURL: https://api.swaggerhub.com/apis/marriott-api/finance-all-statusnotifier/1.0.2
   baseURL: https://virtserver.swaggerhub.com/marriott-api/finance-all-statusnotifier/1.0.2
   tags:
+  - Finance
+  tags_raw:
   - Finance
   - Operations
   properties:
