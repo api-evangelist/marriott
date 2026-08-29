@@ -1,5 +1,8 @@
 aid: marriott
 url: https://raw.githubusercontent.com/api-evangelist/marriott/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "A Broadcom Layer7 developer portal exists at devportalprod.marriott.com and returns HTTP 200, but its anonymous API catalog is literally empty and the portal's own home content returns HTTP 401 — ther"
 name: Marriott International
 kind: company
 description: >-
@@ -338,6 +341,9 @@ apis:
     url: >-
       https://api.swaggerhub.com/apis/marriott-api/hotel-operations-ara-preview-submit-api/1.0.0
 common:
+- type: CapabilityMap
+  url: capabilities/marriott-capability-edges.yml
+  name: Marriott International Business Capability Map
 - type: Overlay
   url: overlays/marriott-tip-internet-portal-overlay.yaml
 - type: Overlay
