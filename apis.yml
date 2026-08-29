@@ -20,6 +20,17 @@ description: >-
   SwaggerHub under the "marriott-api" owner; six are mirrored here verbatim as evidence. Everything a
   developer would actually want is behind a partner relationship, a travel-agent registration, or a GDS
   or channel-manager contract.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/marriott-international.png
 tags:
 - Travel
