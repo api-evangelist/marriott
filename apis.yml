@@ -43,7 +43,7 @@ tags:
 - Booking
 - Distribution
 - Loyalty
-- Short-Term Rental
+- Short Term Rental
 - Corporate Travel
 tags_raw:
 - Travel
@@ -88,6 +88,8 @@ apis:
   humanURL: https://api.swaggerhub.com/apis/marriott-api/tip-internet-portal-api-spec/1.0.2
   baseURL: https://gatewaydsapuat3.marriott.com
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -229,6 +231,8 @@ apis:
   humanURL: https://api.swaggerhub.com/apis/marriott-api/tip-internet-portal-api-spec/1.0.2
   baseURL: https://gatewaydsapuat3.marriott.com
   tags:
+  - Landing Page
+  tags_raw:
   - landing-page
   properties:
   - type: OpenAPI
