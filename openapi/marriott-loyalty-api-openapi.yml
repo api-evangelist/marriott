@@ -1,0 +1,183 @@
+openapi: 3.2.0
+info:
+  title: Merge/Transfer Request API - new TIP MMF Spec for sending Account Merge request to SF CLM Loyalty API
+  version: 1.0.2
+servers:
+- url: https://virtserver.swaggerhub.com/marriott-api/lylt-v1-merge-profile/1.0.1
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: Loyalty
+paths:
+  /loyalty/v1/account-merge:
+    post:
+      summary: Merge or transfer member profiles
+      parameters:
+      - name: client_id
+        in: header
+        description: Client identifier
+        required: true
+        schema:
+          type: string
+      - name: operator_id
+        in: header
+        description: Operator identifier
+        required: true
+        schema:
+          type: string
+      - name: correlation-id
+        in: header
+        description: Correlation identifier for request tracing
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeRequest'
+            examples:
+              mergeProfileExample:
+                summary: Merge two member profiles
+                value:
+                  accountMerge:
+                    sourceAccount:
+                      memberAccountUniqueIdentifier:
+                        memberAccountTypeCode: CSID
+                        memberAccountUniqueIdValue: '779853771'
+                        accountStatusType:
+                          accountStatusTypeCode: '23'
+                          newAccountStatusTypeDescription: Merge
+                    destinationAccount:
+                      memberAccountUniqueIdentifier:
+                        memberAccountTypeCode: CSID
+                        memberAccountUniqueIdValue: '225098331'
+                    mergeReason: User Comment
+        required: true
+      responses:
+        '200':
+          description: Profile merged successfully
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                - code: '400'
+                  message: Bad Request
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                - code: '500'
+                  message: Internal Error
+      tags:
+      - Loyalty
+components:
+  schemas:
+    SourceMergeAccount:
+      required:
+      - memberAccountUniqueIdentifier
+      type: object
+      properties:
+        memberAccountUniqueIdentifier:
+          $ref: '#/components/schemas/SourceMemberAccountUniqueIdentifier'
+    DestinationMemberAccountUniqueIdentifier:
+      required:
+      - memberAccountTypeCode
+      - memberAccountUniqueIdValue
+      type: object
+      properties:
+        memberAccountTypeCode:
+          type: string
+          description: Code identifying the type of member account unique identifier
+          example: CSID
+          enum:
+          - ACID
+          - CSID
+        memberAccountUniqueIdValue:
+          maxLength: 36
+          minLength: 1
+          pattern: (\S)*
+          type: string
+          description: The unique identifier value corresponding to the type code
+          example: '225098331'
+    AccountStatusType:
+      type: object
+      properties:
+        accountStatusTypeCode:
+          type: string
+          example: '23'
+        newAccountStatusTypeDescription:
+          type: string
+          example: Merge
+    MergeRequest:
+      required:
+      - accountMerge
+      type: object
+      properties:
+        accountMerge:
+          $ref: '#/components/schemas/AccountMerge'
+    SourceMemberAccountUniqueIdentifier:
+      required:
+      - memberAccountTypeCode
+      - memberAccountUniqueIdValue
+      type: object
+      properties:
+        memberAccountTypeCode:
+          type: string
+          description: Code identifying the type of member account unique identifier
+          example: CSID
+          enum:
+          - ACID
+          - CSID
+        memberAccountUniqueIdValue:
+          maxLength: 36
+          minLength: 1
+          pattern: (\S)*
+          type: string
+          description: The unique identifier value corresponding to the type code
+          example: '779853771'
+        accountStatusType:
+          $ref: '#/components/schemas/AccountStatusType'
+    AccountMerge:
+      required:
+      - destinationAccount
+      - sourceAccount
+      type: object
+      properties:
+        sourceAccount:
+          $ref: '#/components/schemas/SourceMergeAccount'
+        destinationAccount:
+          $ref: '#/components/schemas/DestinationMergeAccount'
+        mergeReason:
+          type: string
+          example: User Comment
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+    DestinationMergeAccount:
+      required:
+      - memberAccountUniqueIdentifier
+      type: object
+      properties:
+        memberAccountUniqueIdentifier:
+          $ref: '#/components/schemas/DestinationMemberAccountUniqueIdentifier'
+    ErrorDetails:
+      type: object
+      properties:
+        code:
+          type: string
+          example: Error Code
+        message:
+          type: string
+          example: Error Message

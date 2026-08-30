@@ -1,0 +1,314 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: commerce-payment-processor FreedomPay Freeway Service API
+  description: The API for the Commerce Payment project to process the payment with different payment processor
+  termsOfService: http://api.marriott.com/tos
+  contact:
+    name: Marriott API Team
+    url: https://api.marriott.com/
+    email: apidevteam@marriott.com
+  license:
+    name: Marriott Consumer License
+    url: http://api.marriott.com/license
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/marriott-api/commerce-payment-processor/1.0.0
+tags:
+- name: FreedomPay Freeway Service
+paths:
+  /freeway/service:
+    post:
+      tags:
+      - FreedomPay Freeway Service
+      summary: FreedomPay Freeway Service
+      description: FreedomPay Freeway Service
+      parameters:
+      - name: correlation-id
+        in: header
+        description: An unique identifier that is added to identify the context and is passed to all components that are involved in the transaction flow
+        style: simple
+        explode: false
+        schema:
+          type: string
+      security:
+      - basicAuth: []
+      - bearerAuth: []
+      - OAuth2:
+        - MANAGE_ACCT_AUTH_E
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/Submit'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/SubmitResponse'
+components:
+  schemas:
+    Submit:
+      type: object
+      properties:
+        reqeust:
+          type: object
+          properties:
+            storeId:
+              type: string
+              example: 1525237978
+            terminalId:
+              type: string
+              example: 2529106979
+            billTo:
+              type: object
+              properties:
+                ipAddress:
+                  type: string
+                  example: 60.187.144.226
+                title:
+                  type: string
+                  example: Mr
+                firstName:
+                  type: string
+                  example: John
+                middleName:
+                  type: string
+                  example: M
+                lastName:
+                  type: string
+                  example: Smith
+                suffix:
+                  type: string
+                  example: Jr
+                street1:
+                  type: string
+                  example: 123 Main St.
+                street2:
+                  type: string
+                  example: 10th cross
+                street3:
+                  type: string
+                  example: 2nd road
+                city:
+                  type: string
+                  example: Gaithersburg
+                state:
+                  type: string
+                  example: MD
+                postalCode:
+                  type: string
+                  example: 19087
+                country:
+                  type: string
+                  example: US
+                phoneNumber:
+                  type: string
+                  example: 123-456-7890
+                email:
+                  type: string
+                  example: john.smith@mail.com
+            card:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: 3566007770019573
+                cardType:
+                  type: string
+                  example: credit
+                cvNumber:
+                  type: string
+                  example: 476
+                expirationMonth:
+                  type: string
+                  example: 7
+                expirationYear:
+                  type: string
+                  example: 2034
+                nameOnCard:
+                  type: string
+                  example: JOHN SMITH
+            ccAuthService:
+              type: object
+              properties:
+                transType:
+                  type: string
+                  example: verify
+                enableAVS:
+                  type: string
+                  example: Y
+            clientMetadata:
+              type: object
+              properties:
+                applicationName:
+                  type: string
+                  example: MARRIOTT-MAGLEV-API
+                applicationVersion:
+                  type: string
+                  example: 1.0
+            merchantReferenceCode:
+              type: string
+              example: 4841833d-e396-45ba-802d-b6bec7b5096c
+            tokenCreateService:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: 99
+            memberData:
+              type: object
+              properties:
+                enrollmentDate:
+                  type: string
+                  example: '2020-01-12'
+                id:
+                  type: string
+                  example: 12345678
+                street1:
+                  type: string
+                  example: 123 Main St.
+                street2:
+                  type: string
+                  example: 10th cross
+                city:
+                  type: string
+                  example: Gaithersburg
+                state:
+                  type: string
+                  example: MD
+                country:
+                  type: string
+                  example: US
+                postalCode:
+                  type: string
+                  example: 20877
+                phoneNumber:
+                  type: string
+                  example: 123-456-7890
+                level:
+                  type: string
+                  example: GOLD
+                properties:
+                  type: object
+                  properties:
+                    property:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: memberLastLogin
+                        value:
+                          type: string
+                          example: '2020-01-13'
+    SubmitResponse:
+      type: object
+      properties:
+        SubmitResult:
+          type: object
+          properties:
+            reasonCode:
+              type: string
+              example: 100
+            decision:
+              type: string
+              example: ACCEPT
+            networkData:
+              type: object
+              properties:
+                network:
+                  type: string
+                  example: FREEWAY
+            requestID:
+              type: string
+              example: 01Z6N9DE6497U6K834IU8DUINROALBQ0
+            ccAuthReply:
+              type: object
+              properties:
+                enhancedDataEnabled:
+                  type: string
+                  example: N
+                processorTransactionID:
+                  type: string
+                  example: 368341595
+                processorResponseMessage:
+                  type: string
+                  example: APPROVED
+                reconciliationID:
+                  type: string
+                  example: 368341595
+                partialAmount:
+                  type: string
+                  example: N
+                amount:
+                  type: string
+                  example: 0.0
+                processorResponseCode:
+                  type: string
+                  example: 100
+                authRequestID:
+                  type: string
+                  example: 01Z6N9DE6497U6K834IU8DUINROALBQ0
+                requestDateTime:
+                  type: string
+                  example: '2025-10-08T15:20:36.2701408Z'
+                authorizationCode:
+                  type: string
+                  example: 341595
+                reasonCode:
+                  type: string
+                  example: 100
+                authorizedDateTime:
+                  type: string
+                  example: '2025-10-08T15:20:36.3177311Z'
+            merchantReferenceCode:
+              type: string
+              example: 4841833d-e396-45ba-802d-b6bec7b5096c
+            tokenInformation:
+              type: object
+              properties:
+                tokenExpiration:
+                  type: string
+                  example: '2027-01-12T00:00:00.0000000Z'
+                brand:
+                  type: string
+                  example: JC
+                token:
+                  type: string
+                  example: 9183673344669573
+                cardExpirationYear:
+                  type: string
+                  example: 2034
+                cardExpirationMonth:
+                  type: string
+                  example: 7
+                accountNumberMasked:
+                  type: string
+                  example: 356600xxxxxx9573
+            tokenCreateReply:
+              type: object
+              properties:
+                requestDateTime:
+                  type: string
+                  example: '2025-10-08T15:20:36.3177311Z'
+                reasonCode:
+                  type: string
+                  example: 100
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v3/ent-auth/sso/authorize
+          tokenUrl: /v3/ent-auth/sso/token
+          scopes:
+            MANAGE_ACCT_AUTH_E: Grants access to High Risk Transaction to update

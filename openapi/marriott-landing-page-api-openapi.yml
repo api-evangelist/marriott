@@ -1,0 +1,155 @@
+openapi: 3.2.0
+info:
+  title: TIP Internet Portal Landing Page API
+  description: "This API can be used to generate landing page URL, validate user RN/LN in cloud PMS\nand update internet purchase in PMS.\n\nAll TIP Internet Portal API calls require a Bearer token obtained from the token generation\nendpoint defined in this specification. Clients must:\n\nIn the **Authorize** section, configure both **Basic** and **Bearer** authorization as follows:\n\n  1. First, enter your **Basic auth** credentials and call the token generation endpoint to obtain an access token.  \n  2. Then, copy the **Bearer token** from the token endpoint response and set it in the **Bearer auth** configuration.  \n  3. Use this Bearer token for all subsequent API requests.\n  4. The token remains valid for the duration, in seconds, specified by the expires_in field in the response\n  "
+  version: 1.0.2
+servers:
+- url: https://gatewaydsapuat3.marriott.com
+security:
+- BearerAuth: []
+tags:
+- name: landing-page
+  description: Provides the landing page URL based on request inputs.
+paths:
+  /partners/v1/internet-portal/landing-page:
+    get:
+      tags:
+      - landing-page
+      summary: Returns landing page URL for the user channel.
+      description: Get landing page URL for the user channel.
+      parameters:
+      - $ref: '#/components/parameters/CorrelationId'
+      - name: locale
+        in: header
+        required: true
+        schema:
+          type: string
+          example: fr
+      - name: propertyCode
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: nycmq
+      - name: zone
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - GUEST
+          - PUBLIC
+          - CONFERENCE
+          - MEETING
+          - LOBBY
+          example: GUEST
+      - name: L_URL
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Endpoint to post data to LSP/Gateway.
+      - name: LR
+        in: query
+        schema:
+          type: string
+          enum:
+          - AF_AC
+          - AF_MO
+          - AF_AO1
+          - STRICT_AS
+          - STRICT_S
+          - STRICT_A
+          - STRICT_N
+          - TCTC
+          - STRICT_AO
+          description: null
+          example: STRICT_N
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconnectResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconnectError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconnectError'
+        '401':
+          description: Authorization Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationError'
+components:
+  schemas:
+    AuthorizationError:
+      type: object
+      required:
+      - faultcode
+      - faultstring
+      properties:
+        faultcode:
+          type: string
+          example: Server
+        faultstring:
+          type: string
+          example: 1012100 - Credentials invalid or missing.
+    PreconnectError:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: string
+          example: failed
+        code:
+          type: string
+        message:
+          type: string
+        landingPageURI:
+          type: string
+          format: uri
+          example: https://www.marriott.com/hotel-search.mi?invalidProperty=true
+    PreconnectResponse:
+      type: object
+      required:
+      - status
+      - landingPageURL
+      properties:
+        landingPageURL:
+          type: string
+          format: uri
+          example: https://www.marriott.com/fr/phoenix/nycmq/landingPage?AT=CONNECT&Z=guest&LR=STRICT_N&L_URL=http://httpbin.org/post
+        status:
+          type: string
+          example: success
+  parameters:
+    CorrelationId:
+      name: correlation-id
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Correlation identifier for tracing across services.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic

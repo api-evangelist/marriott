@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: TIP Internet Portal Guest Validation API
+  description: "This API can be used to generate landing page URL, validate user RN/LN in cloud PMS\nand update internet purchase in PMS.\n\nAll TIP Internet Portal API calls require a Bearer token obtained from the token generation\nendpoint defined in this specification. Clients must:\n\nIn the **Authorize** section, configure both **Basic** and **Bearer** authorization as follows:\n\n  1. First, enter your **Basic auth** credentials and call the token generation endpoint to obtain an access token.  \n  2. Then, copy the **Bearer token** from the token endpoint response and set it in the **Bearer auth** configuration.  \n  3. Use this Bearer token for all subsequent API requests.\n  4. The token remains valid for the duration, in seconds, specified by the expires_in field in the response\n  "
+  version: 1.0.2
+servers:
+- url: https://gatewaydsapuat3.marriott.com
+security:
+- BearerAuth: []
+tags:
+- name: guest-validation
+  description: Validates a given RN/LN against a property in cloud PMS.
+paths:
+  /partners/v1/internet-portal/guest-validation:
+    post:
+      tags:
+      - guest-validation
+      summary: Validates guest details in cloud PMS and returns member status.
+      description: Validates provided guest details in cloud PMS and returns member status.
+      parameters:
+      - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        description: Guest details to validate in cloud PMS.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserValidationRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestValidationResponse'
+        '404':
+          description: Guest details not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authorization Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationError'
+components:
+  schemas:
+    UserValidationRequest:
+      type: object
+      required:
+      - propertyCode
+      - lastName
+      - roomNumber
+      - tiers
+      properties:
+        roomNumber:
+          type: string
+        lastName:
+          type: string
+        propertyCode:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: phxdr
+        tiers:
+          type: string
+          minLength: 2
+          maxLength: 2
+          example: sp
+          enum:
+          - sf
+          - sp
+          - fp
+          - pp
+    AuthorizationError:
+      type: object
+      required:
+      - faultcode
+      - faultstring
+      properties:
+        faultcode:
+          type: string
+          example: Server
+        faultstring:
+          type: string
+          example: 1012100 - Credentials invalid or missing.
+    GuestValidationResponse:
+      type: object
+      required:
+      - status
+      - memberShipLevel
+      - duration
+      - connectionStatus
+      - purchased
+      properties:
+        memberShipLevel:
+          type: string
+          example: ELITE
+          enum:
+          - ELITE
+          - BASIC
+          - Unknown
+        status:
+          type: string
+          example: success
+        duration:
+          type: integer
+          example: 3
+        connectionStatus:
+          type: boolean
+          example: true
+        purchased:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: string
+          example: failed
+        code:
+          type: string
+        message:
+          type: string
+  parameters:
+    CorrelationId:
+      name: correlation-id
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Correlation identifier for tracing across services.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic

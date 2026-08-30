@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: TIP Internet Portal Auth API
+  description: "This API can be used to generate landing page URL, validate user RN/LN in cloud PMS\nand update internet purchase in PMS.\n\nAll TIP Internet Portal API calls require a Bearer token obtained from the token generation\nendpoint defined in this specification. Clients must:\n\nIn the **Authorize** section, configure both **Basic** and **Bearer** authorization as follows:\n\n  1. First, enter your **Basic auth** credentials and call the token generation endpoint to obtain an access token.  \n  2. Then, copy the **Bearer token** from the token endpoint response and set it in the **Bearer auth** configuration.  \n  3. Use this Bearer token for all subsequent API requests.\n  4. The token remains valid for the duration, in seconds, specified by the expires_in field in the response\n  "
+  version: 1.0.2
+servers:
+- url: https://gatewaydsapuat3.marriott.com
+security:
+- BearerAuth: []
+tags:
+- name: auth
+  description: Authorization related endpoints.
+paths:
+  /v3/ent-auth/sso/token:
+    post:
+      tags:
+      - auth
+      summary: Generate access token for TIP Internet Portal APIs.
+      description: 'Generates an access token that must be used as a Bearer token in the `Authorization`
+
+        header for all subsequent TIP Internet Portal API calls.'
+      security:
+      - BasicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                  - client_credentials
+                  example: client_credentials
+                scope:
+                  type: string
+                  example: openid
+              required:
+              - grant_type
+              - scope
+      responses:
+        '200':
+          description: Token successfully generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Invalid request to token endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Invalid client credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AuthorizationError:
+      type: object
+      required:
+      - faultcode
+      - faultstring
+      properties:
+        faultcode:
+          type: string
+          example: Server
+        faultstring:
+          type: string
+          example: 1012100 - Credentials invalid or missing.
+    Error:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: string
+          example: failed
+        code:
+          type: string
+        message:
+          type: string
+    TokenResponse:
+      type: object
+      description: Token response from the Authorization service.
+      properties:
+        access_token:
+          type: string
+          description: Access token to be used as Bearer token.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          description: Token expiry time in seconds.
+          example: 3600
+        scope:
+          type: string
+          example: openid
+      required:
+      - access_token
+      - token_type
+      - expires_in
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
